@@ -1,11 +1,12 @@
-import { UserJwtPayload } from "@/types/body";
+
+import { UserJwtDecode } from "@/types/body";
 import { jwtDecode } from "jwt-decode";
 
-export const decodeToken = (token: string): UserJwtPayload | null => {
+export const decodeToken = (token: string): UserJwtDecode | null => {
   if (!token) return null;
 
   try {
-    const decoded = jwtDecode<UserJwtPayload>(token);
+    const decoded = jwtDecode<UserJwtDecode>(token);
     return decoded;
   } catch (error) {
     console.error("Lỗi giải mã token:", error);
