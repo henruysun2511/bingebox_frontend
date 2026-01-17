@@ -1,4 +1,5 @@
 import { ApiResponse, LoginBody, LoginResponse } from "@/types/body"; // Sửa lại path cho chuẩn
+import { refreshApi } from "@/utils/axios";
 import http from "@/utils/http";
 
 export const authService = {
@@ -11,6 +12,6 @@ export const authService = {
   },
 
   refreshToken() {
-    return http.post<ApiResponse<{ accessToken: string }>>("/auth/refresh");
-  },
+    return refreshApi.post("/auth/refresh-token");
+  }
 };

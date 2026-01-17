@@ -60,7 +60,6 @@ export default function LoginForm() {
             <CardContent>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                        {/* Username Field */}
                         <FormField
                             control={form.control}
                             name="username"
@@ -97,7 +96,7 @@ export default function LoginForm() {
                         />
 
                         {/* Submit Button */}
-                        <Button type="submit" className="w-full" disabled={isPending}>
+                        <Button type="submit" className="w-full cursor-pointer" disabled={isPending}>
                             {isPending ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
