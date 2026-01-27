@@ -1,5 +1,5 @@
-import { AppSidebar } from "@/components/app-sidebar";
-import { SiteHeader } from "@/components/site-header";
+import { SiteHeader } from "@/components/admin/header/site-header";
+import { AppSidebar } from "@/components/admin/sidebar/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { ReactNode } from "react";
 
@@ -13,7 +13,7 @@ export default function AdminOverviewLayout({
             <SidebarProvider
                 style={
                     {
-                        "--sidebar-width": "calc(var(--spacing) * 72)",
+                        "--sidebar-width": "calc(var(--spacing) * 65)",
                         "--header-height": "calc(var(--spacing) * 12)",
                     } as React.CSSProperties
                 }
@@ -21,7 +21,7 @@ export default function AdminOverviewLayout({
                 <AppSidebar variant="inset"/>
                 <SidebarInset className="bg-gradient">
                     <SiteHeader/>
-                    {/* {children} */}
+                    <div className="p-10">{children}</div>
                 </SidebarInset>
             </SidebarProvider>
         </>

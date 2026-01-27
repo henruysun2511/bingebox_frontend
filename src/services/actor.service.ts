@@ -1,0 +1,28 @@
+import { ApiResponse } from "@/types/body";
+import { Actor } from "@/types/object";
+import { ActorParams } from "@/types/param";
+import http from "@/utils/http";
+
+const prefix = "actors";
+
+export const ActorService = {
+    getList(params: ActorParams) {
+        return http.get<ApiResponse<Actor[]>>(`/${prefix}`, { params });
+    },
+
+    getDetail(id: string) {
+        return http.get<ApiResponse<Actor>>(`/${prefix}/detail/${id}`);
+    },
+
+    create(payload: any) {
+        return http.post<ApiResponse<Actor>>(`/${prefix}`, payload);
+    },
+
+    update(id: string, payload: any) {
+        return http.patch<ApiResponse<Actor>>(`/${prefix}/${id}`, payload);
+    },
+
+    delete(id: string) {
+        return http.delete<ApiResponse<null>>(`/${prefix}/${id}`);
+    },
+};

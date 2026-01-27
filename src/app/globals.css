@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -142,4 +141,106 @@
   .bg-gradient {
     background: var(--background-gradient);
   }
+
+
+  .btn-custom {
+    background-color: #004aad;
+    /* Dùng trực tiếp màu blue của bạn */
+    @apply text-white hover:bg-blue-500 font-medium transition-all px-4 py-2 rounded-md flex items-center justify-center cursor-pointer gap-2;
+  }
+
+  .btn-edit {
+    @apply  bg-green-600 text-white hover:bg-blue-500 font-medium transition-all px-4 py-2 rounded-md flex items-center justify-center cursor-pointer gap-2;
+  }
+
+  .btn-delete {
+    @apply bg-red-500 text-white hover:bg-blue-500 font-medium transition-all px-4 py-2 rounded-md flex items-center justify-center cursor-pointer gap-2;
+  }
+
+  /* Table Styles */
+  .table-wrapper {
+    @apply w-full overflow-x-auto rounded-[14px] border border-white/15 bg-black/45;
+  }
+
+  .table-custom {
+    @apply w-full border-collapse text-[14px] border-none text-white;
+
+    & thead {
+      background-color: #004aad;
+    }
+
+    & th {
+      @apply p-[14px] text-left font-semibold border-b border-white/15;
+    }
+
+    & td {
+      @apply py-[12px] px-[14px] border-b border-white/8;
+    }
+
+    & tbody tr {
+      @apply transition-colors;
+
+      &:hover {
+        @apply bg-white/6;
+      }
+
+      &:nth-child(even) {
+        @apply bg-white/3;
+      }
+    }
+  }
+
+  .select-trigger-custom {
+    @apply w-sm cursor-pointer bg-neutral-900 border-neutral-800 text-neutral-100 rounded-md transition-all duration-200 outline-none border px-3 py-2 focus:ring-2 focus:ring-neutral-700 focus:border-neutral-600;
+  }
+
+  .select-content-custom {
+    @apply bg-neutral-950 border-neutral-800 text-neutral-100 shadow-2xl;
+  }
+
+  .select-item-custom {
+    @apply transition-colors cursor-pointer rounded-sm;
+
+    &:focus {
+      background-color: var(--color-blue);
+      @apply text-white cursor-pointer rounded-md;
+    }
+  }
+
+  .form-input-custom {
+    @apply w-full bg-neutral-900 border-neutral-800 text-neutral-100 placeholder:text-neutral-500 rounded-md transition-all duration-200 outline-none border px-3 py-2;
+
+    &:focus {
+      @apply ring-2 ring-neutral-700 border-neutral-600;
+    }
+  }
+
+  .form-input-file-custom {
+    @apply w-28 h-28 border-2 border-dashed border-neutral-700 
+           rounded-md flex items-center justify-center cursor-pointer 
+           bg-neutral-900/50 hover:bg-neutral-800 transition-colors
+           relative overflow-hidden text-[0px]; /* text-[0px] để ẩn phần text mặc định bên ngoài nút */
+
+    &::file-selector-button {
+      @apply w-full h-full bg-transparent border-none
+             text-sm text-neutral-400 font-medium
+             cursor-pointer flex items-center justify-center;
+    }
+
+    &::-webkit-file-upload-button {
+       @apply w-full h-full bg-transparent border-none text-neutral-400 cursor-pointer;
+       margin: 0;
+       padding: 0;
+    }
+  }
+
+  .form-label-custom {
+    @apply text-sm font-medium text-neutral-300 mb-1.5 block;
+  }
+
+  .form-error-custom {
+    @apply text-xs font-medium text-red-400 mt-1;
+  }
+
 }
+

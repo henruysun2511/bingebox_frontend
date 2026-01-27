@@ -1,6 +1,7 @@
 import { useAuthStore } from "@/stores/useAuthStore";
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { InternalAxiosRequestConfig } from "axios";
 
+// Instance này CHỈ dùng để gọi refresh token, không đính kèm Interceptor đính token cũ
 export const refreshApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
@@ -9,6 +10,7 @@ export const refreshApi = axios.create({
   },
 });
 
+// ===== Main API =====
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
@@ -19,10 +21,16 @@ const api = axios.create({
 
 // ===== Request interceptor =====
 api.interceptors.request.use((config) => {
-  const token = useAuthStore.getState().accessToken;
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  const { accessToken, isHydrated } = useAuthStore.getState();
+
+  if (!isHydrated) {
+    return config; // chờ hydrate xong
   }
+
+  if (accessToken && config.headers) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+
   return config;
 });
 
@@ -33,7 +41,7 @@ let queue: ((token: string) => void)[] = [];
 api.interceptors.response.use(
   (res) => res,
   async (error) => {
-    const originalRequest = error.config as AxiosRequestConfig & {
+    const originalRequest = error.config as InternalAxiosRequestConfig & {
       _retry?: boolean;
     };
 
@@ -53,18 +61,19 @@ api.interceptors.response.use(
 
       try {
         const res = await refreshApi.post("/auth/refresh-token");
-        const newToken = res.data.accessToken;
+        const newToken = res.data.data.accessToken;
 
         useAuthStore.getState().setAccessToken(newToken);
 
         queue.forEach((cb) => cb(newToken));
         queue = [];
 
+        originalRequest.headers!.Authorization = `Bearer ${newToken}`;
         return api(originalRequest);
       } catch (err) {
         queue = [];
         useAuthStore.getState().logout();
-        window.location.href = "/auth/login";
+        // window.location.href = "/auth/login";
         return Promise.reject(err);
       } finally {
         isRefreshing = false;

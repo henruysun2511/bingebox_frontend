@@ -1,0 +1,226 @@
+"use client"
+
+import {
+  IconBuildingCommunity,
+  IconCalendarEvent,
+  IconCamera,
+  IconCarrot,
+  IconDashboard,
+  IconDatabase,
+  IconFileAi,
+  IconFileDescription,
+  IconFileWord,
+  IconHelp,
+  IconMovie,
+  IconReport,
+  IconSettings,
+  IconTicket,
+  IconTicketOff,
+  IconUsers
+} from "@tabler/icons-react"
+import * as React from "react"
+
+import { NavMain } from "@/components/admin/sidebar/nav-main"
+import { NavSecondary } from "@/components/admin/sidebar/nav-secondary"
+import { NavUser } from "@/components/admin/sidebar/nav-user"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "@/components/ui/sidebar"
+
+const data = {
+  user: {
+    name: "shadcn",
+    email: "m@example.com",
+    avatar: "/avatars/shadcn.jpg",
+  },
+  navMain: [
+    {
+      title: "Tổng quan",
+      url: "/admin/overview",
+      icon: IconDashboard,
+    },
+    {
+      title: "Quản lý người dùng",
+      url: "#",
+      icon: IconUsers, // Thay đổi icon người dùng
+      items: [
+        { title: "Người dùng", url: "/admin/user" },
+        { title: "Vai trò", url: "/admin/role" },
+        { title: "Quyền hạn", url: "/admin/permission" },
+        { title: "Hạng thành viên", url: "/admin/membership" },
+        { title: "Loại độ tuổi", url: "/admin/ageType" },
+      ],
+    },
+    {
+      title: "Quản lý phim",
+      url: "#",
+      icon: IconMovie, // Thay đổi icon phim
+      items: [
+        { title: "Phim", url: "/admin/movie" },
+        { title: "Thể loại", url: "/admin/category" },
+        { title: "Diễn viên", url: "/admin/actor" },
+      ],
+    },
+    {
+      title: "Quản lý rạp",
+      url: "#",
+      icon: IconBuildingCommunity, // Thay đổi icon rạp/tòa nhà
+      items: [
+        { title: "Rạp", url: "/admin/cinema" },
+        { title: "Phòng chiếu", url: "/admin/room" },
+        { title: "Định dạng phòng", url: "/admin/formatRoom" },
+        { title: "Ghế", url: "/admin/seat" },
+        { title: "Loại ghế", url: "/admin/seatType" },
+      ],
+    },
+    {
+      title: "Quản lý suất chiếu",
+      url: "#",
+      icon: IconCalendarEvent, // Thay đổi icon lịch trình
+      items: [
+        { title: "Suất chiếu", url: "/admin/showtime" },
+        { title: "Khung giờ", url: "/admin/timeSlot" },
+      ],
+    },
+    {
+      title: "Quản lý vé",
+      url: "#",
+      icon: IconTicket, // Thay đổi icon vé
+      items: [
+        { title: "Hóa đơn vé", url: "/admin/ticket" },
+        { title: "Hóa đơn thanh toán", url: "/admin/booking" },
+        { title: "Giá vé", url: "/admin/ticketPrice" },
+      ],
+    },
+    {
+      title: "Quản lý voucher",
+      url: "/admin/voucher",
+      icon: IconTicketOff, // Thay đổi icon voucher/giảm giá
+    },
+    {
+      title: "Quản lý đồ ăn",
+      url: "/admin/food",
+      icon: IconCarrot, // Thay đổi icon bắp rang/đồ ăn
+    },
+  ],
+  navClouds: [
+    {
+      title: "Capture",
+      icon: IconCamera,
+      isActive: true,
+      url: "#",
+      items: [
+        {
+          title: "Active Proposals",
+          url: "#",
+        },
+        {
+          title: "Archived",
+          url: "#",
+        },
+      ],
+    },
+    {
+      title: "Proposal",
+      icon: IconFileDescription,
+      url: "#",
+      items: [
+        {
+          title: "Active Proposals",
+          url: "#",
+        },
+        {
+          title: "Archived",
+          url: "#",
+        },
+      ],
+    },
+    {
+      title: "Prompts",
+      icon: IconFileAi,
+      url: "#",
+      items: [
+        {
+          title: "Active Proposals",
+          url: "#",
+        },
+        {
+          title: "Archived",
+          url: "#",
+        },
+      ],
+    },
+  ],
+  navSecondary: [
+    {
+      title: "Settings",
+      url: "#",
+      icon: IconSettings,
+    },
+    {
+      title: "Get Help",
+      url: "#",
+      icon: IconHelp,
+    },
+  ],
+  documents: [
+    {
+      name: "Data Library",
+      url: "#",
+      icon: IconDatabase,
+    },
+    {
+      name: "Reports",
+      url: "#",
+      icon: IconReport,
+    },
+    {
+      name: "Word Assistant",
+      url: "#",
+      icon: IconFileWord,
+    },
+  ],
+}
+
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  return (
+    <Sidebar className="" collapsible="offcanvas" {...props}>
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              asChild
+              className="data-[slot=sidebar-menu-button]:!p-1.5"
+            >
+              <a href="/">
+                <Avatar>
+                  <AvatarImage
+                    src="https://henruysun2511.github.io/BingeBox_Project/assets/images/bingebox_logo.png"
+                    alt="logo.png"
+                  />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <span className="text-base font-semibold">BingeBox Cinema</span>
+              </a>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
+      <SidebarContent className="[&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <NavMain items={data.navMain} />
+        {/* <NavDocuments items={data.documents} /> */}
+        <NavSecondary items={data.navSecondary} className="mt-auto" />
+      </SidebarContent>
+      <SidebarFooter>
+        <NavUser user={data.user} />
+      </SidebarFooter>
+    </Sidebar>
+  )
+}

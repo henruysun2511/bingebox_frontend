@@ -5,7 +5,7 @@ interface ApiResponse<T> {
     statusCode: number;
     message: string;
     data: T;
-    meta?: Pagination;
+    pagination?: Pagination;
 }
 
 export type { ApiResponse };

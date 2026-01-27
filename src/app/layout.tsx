@@ -1,3 +1,4 @@
+
 import { AuthInit } from "@/components/provider/AuthInit";
 import QueryProvider from "@/components/provider/QueryClient";
 import type { Metadata } from "next";
@@ -21,9 +22,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
+
   return (
     <html lang="en">
-       <body className={montserrat.variable}>
+      <body className={montserrat.variable}>
         <QueryProvider>
           <AuthInit />
           {children}
