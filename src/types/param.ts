@@ -1,4 +1,3 @@
-import { AgePermissionTypeEnum } from "./enum";
 
 interface Pagination {
   page?: number;
@@ -17,9 +16,10 @@ export type { ActorParams };
 interface MovieParams extends Pagination {
   name?: string;
   status?: string;
-  categoryIds: string;
-  agePermission: AgePermissionTypeEnum;
-  releaseDate?: Date;
+  categoryIds?: string[];
+  agePermission?: string;
+  releaseDate?: string;
+  sort?: string;
 }
 export type { MovieParams };
 

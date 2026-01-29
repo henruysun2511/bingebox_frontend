@@ -3,6 +3,7 @@
 import { DataPagination } from "@/components/admin/pagination/data-pagination";
 import { ConfirmDialog } from "@/components/common/confirm/confirm-dialog";
 import { Button } from "@/components/ui/button";
+import { ActorSortType } from "@/constants/sort";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useActorList, useDeleteActor } from "@/queries/useActorQuery";
 import { Actor } from "@/types/object";
@@ -18,7 +19,7 @@ import { ActorFilter } from "./actor-filter";
 
 export default function ActorPage() {
     const [search, setSearch] = useState("");
-    const [sort, setSort] = useState<"name" | "-name" | "createdAt">("createdAt");
+    const [sort, setSort] = useState<ActorSortType>("createdAt");
     const [page, setPage] = useState(1);
 
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);

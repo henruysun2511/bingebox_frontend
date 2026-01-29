@@ -1,5 +1,6 @@
 import { useAuthStore } from "@/stores/useAuthStore";
 import axios, { InternalAxiosRequestConfig } from "axios";
+import qs from "qs";
 
 // Instance này CHỈ dùng để gọi refresh token, không đính kèm Interceptor đính token cũ
 export const refreshApi = axios.create({
@@ -17,6 +18,10 @@ const api = axios.create({
   headers: {
     Accept: "application/json",
   },
+  paramsSerializer: (params) =>
+    qs.stringify(params, {
+      arrayFormat: "repeat", // 👈 CỐT LÕI
+    }),
 });
 
 // ===== Request interceptor =====

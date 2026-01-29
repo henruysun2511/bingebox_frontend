@@ -1,5 +1,6 @@
 import { useUploadMedia } from "@/queries/useUploadQuery";
 import { Upload } from "@/types/object";
+import { handleError } from "@/utils/error";
 import { toast } from "sonner";
 
 export const useUploadFile = () => {
@@ -14,9 +15,7 @@ export const useUploadFile = () => {
                 publicId: res.data.publicId,
             };
         } catch (error: any) {
-            const msg =
-                error?.response?.data?.message || "Lỗi upload ảnh";
-            toast.error(Array.isArray(msg) ? msg.join(", ") : msg);
+            handleError(error);
             throw error;
         }
     };

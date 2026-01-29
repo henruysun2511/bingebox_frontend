@@ -1,5 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ACTOR_SORT_OPTIONS } from "@/constants/sort";
 
 interface ActorFilterProps {
   search: string;
@@ -34,9 +35,11 @@ export function ActorFilter({ search, setSearch, sort, setSort, setPage }: Actor
           <SelectValue placeholder="Sắp xếp" />
         </SelectTrigger>
         <SelectContent className="select-content-custom">
-          <SelectItem className="select-item-custom" value="createdAt">Mới nhất</SelectItem>
-          <SelectItem className="select-item-custom" value="name">Tên A → Z</SelectItem>
-          <SelectItem className="select-item-custom" value="-name">Tên Z → A</SelectItem>
+          {ACTOR_SORT_OPTIONS.map((opt) => (
+            <SelectItem className="select-item-custom" key={opt.value} value={opt.value}>
+              {opt.label}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
     </div>

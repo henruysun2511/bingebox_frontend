@@ -21,6 +21,7 @@ import { useCreateActor, useUpdateActor } from "@/queries/useActorQuery";
 import { ActorInput, ActorSchema } from "@/schemas/actor.schema";
 import { Actor } from "@/types/object";
 import { handleError } from "@/utils/error";
+import { removeEmptyFields } from "@/utils/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -89,14 +90,17 @@ export function ActorDialog({ open, onClose, actor }: Props) {
 
     const onSubmit = async (values: ActorInput) => {
         try {
+            const cleanValues = removeEmptyFields(values);
+
             if (isEdit) {
                 await updateActor.mutateAsync({
                     id: actor!._id,
-                    data: values,
+                    data: cleanValues,
                 });
                 toast.success("Cập nhật actor thành công");
             } else {
-                await createActor.mutateAsync(values);
+                console.log(cleanValues);
+                await createActor.mutateAsync(cleanValues);
                 toast.success("Thêm actor thành công");
             }
             onClose();
@@ -108,7 +112,7 @@ export function ActorDialog({ open, onClose, actor }: Props) {
     return (
         <Dialog open={open} onOpenChange={onClose}>
             {/* max-h-[90vh] và overflow-y-auto giúp dialog không bị tràn màn hình */}
-            <DialogContent className="max-w-lg bg-black text-white overflow-y-auto max-h-[90vh] border-neutral-800">
+            <DialogContent className="max-w-7xl bg-black text-white overflow-y-auto max-h-[90vh] border-neutral-800">
                 <DialogHeader>
                     <DialogTitle className="text-xl font-bold">
                         {isEdit ? "Sửa Actor" : "Thêm Actor"}
@@ -203,10 +207,10 @@ export function ActorDialog({ open, onClose, actor }: Props) {
                                 <FormItem>
                                     <FormLabel className="form-label-custom">Tiểu sử</FormLabel>
                                     <FormControl>
-                                        <Textarea 
-                                            className="form-input-custom min-h-[120px] resize-none" 
-                                            placeholder="Mô tả ngắn về diễn viên..." 
-                                            {...field} 
+                                        <Textarea
+                                            className="form-input-custom min-h-[120px] resize-none"
+                                            placeholder="Mô tả ngắn về diễn viên..."
+                                            {...field}
                                         />
                                     </FormControl>
                                     <FormMessage className="form-error-custom" />

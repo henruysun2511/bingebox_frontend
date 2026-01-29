@@ -1,4 +1,4 @@
-import { GenderEnum } from "@/types/enum";
+import { GenderEnum } from "@/constants/enum";
 import * as z from "zod";
 
 export const ActorSchema = z.object({
