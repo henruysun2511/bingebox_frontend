@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { AgePermissionTypeEnum, MovieStatusEnum } from "@/constants/enum";
 import { MOVIE_FORMATS, MOVIE_STATUS_OPTIONS, SUBTITLE_TYPE_OPTIONS } from "@/constants/filter";
+import { useDebounce } from "@/hooks/useDebounce";
 import { useFileChange } from "@/hooks/useFileChange";
 import { cn } from "@/lib/utils";
 import { useActorList } from "@/queries/useActorQuery";
@@ -22,7 +23,7 @@ import { removeEmptyFields } from "@/utils/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CommandEmpty, CommandGroup } from "cmdk";
 import { Check } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -33,6 +34,7 @@ interface Props {
 }
 
 export function MovieDialog({ open, onClose, movie }: Props) {
+    const [search, setSearch] = useState("");
     const isEdit = !!movie;
 
     const form = useForm<MovieInput>({
@@ -63,7 +65,10 @@ export function MovieDialog({ open, onClose, movie }: Props) {
     const { handleFileChange: uploadBanner, isUploading: upBanner } = useFileChange(form);
 
     const { data: categoryRes } = useCategoryList();
-    const { data: actorRes } = useActorList({});
+    const { data: actorRes, isFetching } = useActorList({
+        limit: 3,
+        name: useDebounce(search, 500),
+    });
     const { data: movieActorsRes, isLoading: loadingActors } = useMovieActors(movie?._id, {
         enabled: open && isEdit && !!movie?._id
     });
@@ -76,9 +81,9 @@ export function MovieDialog({ open, onClose, movie }: Props) {
             if (movie) {
                 form.reset({
                     ...movie,
-                    actors: movie.actors || [],      
-                    categories: movie.categories || [], 
-                    format: movie.format || [],    
+                    actors: movie.actors || [],
+                    categories: movie.categories || [],
+                    format: movie.format || [],
                 } as any);
 
                 if (movieActorsRes?.data) {
@@ -307,10 +312,9 @@ export function MovieDialog({ open, onClose, movie }: Props) {
                                                 </FormControl>
                                             </PopoverTrigger>
                                             <PopoverContent className="w-[400px] p-0 bg-neutral-900 border-neutral-800" align="start">
-                                                <Command className="bg-transparent text-white">
-                                                    <CommandInput placeholder="Tìm diễn viên..." className="text-white" />
+                                                <Command shouldFilter={false} className="bg-transparent text-white">                                                    <CommandInput onValueChange={setSearch} placeholder="Tìm diễn viên..." className="text-white" />
                                                     <CommandList>
-                                                        <CommandEmpty>Không tìm thấy diễn viên.</CommandEmpty>
+                                                        <CommandEmpty> {isFetching ? "Đang tìm diễn viên..." : "Không tìm thấy diễn viên"}</CommandEmpty>
                                                         <CommandGroup className="max-h-64 overflow-y-auto">
                                                             {actors.map((a: any) => (
                                                                 <CommandItem

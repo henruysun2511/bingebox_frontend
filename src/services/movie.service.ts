@@ -1,3 +1,4 @@
+import { CinemaInput } from "@/schemas/cinema.schema";
 import { ApiResponse } from "@/types/body";
 import { Movie } from "@/types/object";
 import { MovieParams } from "@/types/param";
@@ -10,23 +11,16 @@ export const MovieService = {
         return http.get<ApiResponse<Movie[]>>(`/${prefix}`, { params });
     },
 
-    getAdminList(params: MovieParams) {
-        return http.get<ApiResponse<Movie[]>>(`/${prefix}/admin`, { params });
-    },
-
-    getActors(movieId: string) {
-        return http.get<ApiResponse<any[]>>(`/${prefix}/actors/${movieId}`);
-    },
 
     getDetail(id: string) {
         return http.get<ApiResponse<Movie>>(`/${prefix}/detail/${id}`);
     },
 
-    create(payload: any) {
+    create(payload: CinemaInput) {
         return http.post<ApiResponse<Movie>>(`/${prefix}`, payload);
     },
 
-    update(id: string, payload: any) {
+    update(id: string, payload: CinemaInput) {
         return http.patch<ApiResponse<Movie>>(`/${prefix}/${id}`, payload);
     },
 

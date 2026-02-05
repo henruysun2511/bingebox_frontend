@@ -27,3 +27,17 @@ export const ACTOR_SORT_OPTIONS: {
   { value: "name", label: "Tên A → Z" },
   { value: "-name", label: "Tên Z → A" },
 ];
+
+export type CinemaSortType =
+| "createdAt"
+| "name"
+| "-name"
+
+export const CINEMA_SORT_OPTIONS: {
+  value: ActorSortType;
+  label: string;
+}[] = [
+  { value: "createdAt", label: "Mới nhất" },
+  { value: "name", label: "Tên A → Z" },
+  { value: "-name", label: "Tên Z → A" },
+];

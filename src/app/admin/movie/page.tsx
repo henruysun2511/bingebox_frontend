@@ -44,7 +44,6 @@ export default function MoviePage() {
         releaseDate: releaseDate || undefined,
         categoryIds: categories.length ? categories : undefined,
     });
-    console.log(categories);
     console.log(data);
 
     const deleteMovie = useDeleteMovie();

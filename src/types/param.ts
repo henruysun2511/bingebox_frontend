@@ -23,4 +23,11 @@ interface MovieParams extends Pagination {
 }
 export type { MovieParams };
 
+interface CinemaParams extends Pagination {
+  name?: string;
+  province?: string;
+  sort?: string;
+}
+export type { CinemaParams };
+
 
