@@ -30,4 +30,16 @@ interface CinemaParams extends Pagination {
 }
 export type { CinemaParams };
 
+interface FormatRoomParams extends Pagination {
+
+}
+export type { FormatRoomParams };
+
+interface RoomParams extends Pagination {
+    name?: string;
+    cinemaId?: string;
+    sort?: string;
+}
+export type { RoomParams };
+
 

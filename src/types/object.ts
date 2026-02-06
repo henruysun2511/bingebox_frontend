@@ -78,7 +78,7 @@ interface FormatRoom {
 export type { FormatRoom };
 
 
-interface SeatType {
+interface SeatType extends BaseObject {
   _id: string;
   name: string;
   color: string;
@@ -102,4 +102,17 @@ interface Seat {
 };
 
 export type { Seat };
+
+interface Room {
+    _id: string;
+    name: string;
+    cinema: string | Cinema; 
+    format: string | FormatRoom; 
+    createdAt: string;
+}
+export type { Room };
+
+
+
+
 

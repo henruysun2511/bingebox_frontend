@@ -90,7 +90,7 @@ export function ActorDialog({ open, onClose, actor }: Props) {
 
     const onSubmit = async (values: ActorInput) => {
         try {
-            const cleanValues = removeEmptyFields(values);
+            const cleanValues = removeEmptyFields(values) as ActorInput;
 
             if (isEdit) {
                 await updateActor.mutateAsync({
@@ -228,7 +228,7 @@ export function ActorDialog({ open, onClose, actor }: Props) {
                                 updateActor.isPending
                             }
                         >
-                            {isUploading ? "Đang xử lý ảnh..." : (isEdit ? "Lưu thay đổi" : "Tạo Actor mới")}
+                            {isUploading ? "Đang xử lý..." : (isEdit ? "Lưu thay đổi" : "Tạo Actor mới")}
                         </Button>
                     </form>
                 </Form>

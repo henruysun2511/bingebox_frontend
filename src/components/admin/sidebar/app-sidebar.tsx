@@ -74,9 +74,9 @@ const data = {
       icon: IconBuildingCommunity, // Thay đổi icon rạp/tòa nhà
       items: [
         { title: "Rạp", url: "/admin/cinema" },
-        { title: "Phòng chiếu", url: "/admin/room" },
+        { title: "Phòng chiếu ", url: "/admin/room" },
         { title: "Định dạng phòng", url: "/admin/formatRoom" },
-        { title: "Ghế", url: "/admin/seat" },
+        { title: "Phòng chiếu - Ghế", url: "/admin/seat" },
         { title: "Loại ghế", url: "/admin/seatType" },
       ],
     },

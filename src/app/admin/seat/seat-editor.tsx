@@ -9,14 +9,6 @@ export default function SeatEditor({ rows, setRows, selected }: Props) {
   const { rowIndex, seatIndex } = selected
   const seat = rows[rowIndex].seats[seatIndex]
 
-  const recalcCodes = (row: any) => {
-    let count = 1
-    row.seats.forEach((s: any) => {
-      if (!s.isBlocked) {
-        s.code = `${row.rowKey}${count++}`
-      }
-    })
-  }
 
   const toggleCoupleSeat = () => {
     // Không cho phép biến ô trống thành ghế đôi

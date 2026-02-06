@@ -1,3 +1,4 @@
+import { ActorInput } from "@/schemas/actor.schema";
 import { ApiResponse } from "@/types/body";
 import { Actor } from "@/types/object";
 import { ActorParams } from "@/types/param";
@@ -14,11 +15,11 @@ export const ActorService = {
         return http.get<ApiResponse<Actor>>(`/${prefix}/detail/${id}`);
     },
 
-    create(payload: any) {
+    create(payload: ActorInput) {
         return http.post<ApiResponse<Actor>>(`/${prefix}`, payload);
     },
 
-    update(id: string, payload: any) {
+    update(id: string, payload: ActorInput) {
         return http.patch<ApiResponse<Actor>>(`/${prefix}/${id}`, payload);
     },
 
