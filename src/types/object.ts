@@ -1,4 +1,4 @@
-import { AgePermissionTypeEnum, GenderEnum } from "../constants/enum";
+import { AgePermissionTypeEnum, BaseStatusEnum, GenderEnum } from "../constants/enum";
 
 
 interface BaseObject {
@@ -108,7 +108,12 @@ interface Room {
     name: string;
     cinema: string | Cinema; 
     format: string | FormatRoom; 
-    createdAt: string;
+    status: BaseStatusEnum;
+    seatLayout?: {
+        rows: number,
+        columns: number
+    };
+    totalSeats?: number; 
 }
 export type { Room };
 

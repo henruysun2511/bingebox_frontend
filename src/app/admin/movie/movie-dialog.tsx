@@ -97,7 +97,7 @@ export function MovieDialog({ open, onClose, movie }: Props) {
     }, [open, movie, form]);
 
     const onSubmit = async (values: MovieInput) => {
-        const cleanValues = removeEmptyFields(values);
+        const cleanValues = removeEmptyFields(values) as MovieInput;
 
         try {
             if (isEdit) {

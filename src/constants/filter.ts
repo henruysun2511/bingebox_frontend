@@ -1,4 +1,4 @@
-import { AgePermissionTypeEnum, MovieStatusEnum, SubtitleTypeEnum } from "./enum";
+import { AgePermissionTypeEnum, BaseStatusEnum, MovieStatusEnum, SubtitleTypeEnum } from "./enum";
 
 export const SUBTITLE_TYPE_OPTIONS = [
   {
@@ -34,6 +34,17 @@ export const MOVIE_STATUS_OPTIONS = [
     label: "Đã kết thúc",
     className: "bg-red-600 text-white border-none",
   },
+];
+
+export const BASE_STATUS_LABEL = [
+  {
+    value: BaseStatusEnum.ACTIVE,
+    label: "Hoạt động"
+  },
+  {
+    value: BaseStatusEnum.INACTIVE,
+    label: "Tạm dừng"
+  }
 ];
 
 export const AGE_PERMISSION_OPTIONS = [

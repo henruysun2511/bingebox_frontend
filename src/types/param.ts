@@ -38,8 +38,9 @@ export type { FormatRoomParams };
 interface RoomParams extends Pagination {
     name?: string;
     cinemaId?: string;
-    sort?: string;
 }
 export type { RoomParams };
+
+
 
 

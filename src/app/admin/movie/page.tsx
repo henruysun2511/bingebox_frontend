@@ -61,27 +61,29 @@ export default function MoviePage() {
 
     return (
         <div className="space-y-4">
-            <div className="flex justify-between gap-6 flex-wrap">
-                <MovieFilter
-                    search={search}
-                    setSearch={setSearch}
-                    sort={sort}
-                    setSort={setSort}
-                    status={status}
-                    setStatus={setStatus}
-                    agePermission={agePermission}
-                    setAgePermission={setAgePermission}
-                    releaseDate={releaseDate}
-                    setReleaseDate={setReleaseDate}
-                    categories={categories}
-                    setCategories={setCategories}
-                    setPage={setPage}
-                />
-
+            <div className="flex justify-between items-center">
+                <h1 className="text-2xl font-bold text-white">Phim</h1>
                 <Button className="btn-custom" onClick={() => setOpen(true)}>
                     <Plus size={16} /> Thêm Phim
                 </Button>
             </div>
+
+            <MovieFilter
+                search={search}
+                setSearch={setSearch}
+                sort={sort}
+                setSort={setSort}
+                status={status}
+                setStatus={setStatus}
+                agePermission={agePermission}
+                setAgePermission={setAgePermission}
+                releaseDate={releaseDate}
+                setReleaseDate={setReleaseDate}
+                categories={categories}
+                setCategories={setCategories}
+                setPage={setPage}
+            />
+
 
             <DataTable
                 data={data?.data ?? []}
