@@ -15,7 +15,7 @@ import {
     CommandList,
 } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Room } from "@/types/object";
+import { FormatRoom, Room } from "@/types/object";
 
 interface RoomInfoProps {
     onRoomSelect: (room: Room | null) => void;
@@ -205,7 +205,7 @@ export default function RoomInfo({ onRoomSelect }: RoomInfoProps) {
 
                     <div className="flex items-center justify-between">
                         <p className="text-xs text-zinc-500 uppercase font-semibold">Loại phòng</p>
-                        <p className="text-sm text-zinc-200">{selectedRoom ? selectedRoom.format?.name : "Chưa có định dạng"}</p>
+                        <p className="text-sm text-zinc-200">{selectedRoom ? (selectedRoom.format as FormatRoom).name : "Chưa có định dạng"}</p>
                     </div>
 
                     <div className="flex items-center justify-between">

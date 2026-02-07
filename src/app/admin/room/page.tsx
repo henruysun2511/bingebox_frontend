@@ -10,7 +10,7 @@ import { ConfirmDialog } from "@/components/common/confirm/confirm-dialog";
 import { Button } from "@/components/ui/button";
 
 import { useDebounce } from "@/hooks/useDebounce";
-import { useDeleteRoom, useRoomList } from "@/queries/useRoomQuery";
+import { useChangeRoomStatus, useDeleteRoom, useRoomList } from "@/queries/useRoomQuery";
 import { Room } from "@/types/object";
 import { handleError } from "@/utils/error";
 
@@ -61,6 +61,17 @@ export default function RoomPage() {
         }
     };
 
+    const changeStatusMutation = useChangeRoomStatus();
+
+    const handleChangeStatus = async (id: string, status: string) => {
+        try {
+            await changeStatusMutation.mutateAsync({ id, status });
+            toast.success("Cập nhật trạng thái thành công");
+        } catch (error) {
+            handleError(error);
+        }
+    };
+
     return (
         <div className="space-y-6 p-6">
             <div className="flex justify-between items-center">
@@ -83,6 +94,7 @@ export default function RoomPage() {
                 columns={roomColumns(
                     (room) => { setSelected(room); setOpen(true); }, // Edit
                     (id) => { setIdToDelete(id); setIsConfirmOpen(true); }, // Delete
+                    handleChangeStatus // Change status
                 )}
                 loading={isPending}
             />

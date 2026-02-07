@@ -9,7 +9,6 @@ import SeatEditor from "./seat-editor"
 
 export default function SeatList({ roomId }: { roomId: string }) {
   const { data, isLoading } = useSeatListByRoom(roomId);
-  console.log(data);
   const { data: categoryData } = useSeatTypeList();
   const categories = categoryData?.data || [];
 
@@ -41,6 +40,20 @@ export default function SeatList({ roomId }: { roomId: string }) {
       setRows(formattedRows);
     }
   }, [seats]);
+
+  const handleInitLayout = () => {
+    setRows([{
+      rowKey: "A",
+      seats: Array.from({ length: 10 }, (_, i) => ({
+        id: `init-A${i + 1}`,
+        code: `A${i + 1}`,
+        row: "A",
+        column: i + 1,
+        isBlocked: false,
+        seatType: categories[0] // Mặc định lấy loại ghế đầu tiên
+      }))
+    }]);
+  };
 
 
   const reindexAll = (allRows: any[]) => {
@@ -75,32 +88,95 @@ export default function SeatList({ roomId }: { roomId: string }) {
     });
   }
 
-  const addRowBelow = (rowIndex: number) => {
-    // 1. Tìm loại ghế mặc định (thường là loại đầu tiên hoặc loại không phải "đôi")
-    const defaultCategory = categories.find((c: any) =>
-      !c.name.toLowerCase().includes("đôi")
-    ) || categories[0];
+  // const addRowBelow = (rowIndex: number) => {
+  //   // 1. Tìm loại ghế mặc định (loại thường)
+  //   const defaultCategory = categories.find((c: any) =>
+  //     !c.name.toLowerCase().includes("đôi")
+  //   ) || categories[0];
 
+  //   const baseRow = rows[rowIndex];
+  //   const newRow = {
+  //     rowKey: "",
+  //     seats: baseRow.seats.map((s: any) => {
+  //       // Nếu ghế ở hàng trên đang là ô trống (isBlocked)
+  //       // thì hàng dưới tạo ra cũng là ô trống và KHÔNG có seatType
+  //       if (s.isBlocked) {
+  //         return {
+  //           ...s,
+  //           id: crypto.randomUUID(),
+  //           _id: undefined,
+  //           isCoupleSeat: false,
+  //           partnerSeatCode: null,
+  //           seatType: null,      // Không có object loại ghế
+  //           seatTypeId: null,    // Không có ID loại ghế
+  //           code: "TRỐNG"
+  //         };
+  //       }
+
+  //       // Nếu là ghế bình thường thì mới gán defaultCategory
+  //       return {
+  //         ...s,
+  //         id: crypto.randomUUID(),
+  //         _id: undefined,
+  //         isCoupleSeat: false,
+  //         partnerSeatCode: null,
+  //         seatType: { ...defaultCategory },
+  //         seatTypeId: defaultCategory._id,
+  //         code: ""
+  //       };
+  //     })
+  //   };
+
+  //   const updated = [...rows];
+  //   updated.splice(rowIndex + 1, 0, newRow);
+
+  //   // Reindex để cập nhật lại rowKey (A, B, C...) và mã ghế (A1, A2...)
+  //   setRows(reindexAll(updated));
+  //   toast.success("Đã thêm hàng mới (giữ nguyên vị trí ô trống)");
+  // };
+
+
+  const addRowBelow = (rowIndex: number) => {
     const baseRow = rows[rowIndex];
+
     const newRow = {
-      rowKey: "",
-      seats: baseRow.seats.map((s: any) => ({
-        ...s,
-        id: crypto.randomUUID(),
-        _id: undefined,
-        isCoupleSeat: false,
-        partnerSeatCode: null,
-        // QUAN TRỌNG: Phải gán lại cả Object và ID của loại ghế thường
-        seatType: { ...defaultCategory },
-        seatTypeId: defaultCategory._id,
-        code: ""
-      }))
+      rowKey: "", // Sẽ được reindexAll xử lý sau
+      seats: baseRow.seats.map((s: any) => {
+        // Nếu là ô trống, giữ nguyên là ô trống và không có loại ghế
+        if (s.isBlocked) {
+          return {
+            ...s,
+            id: crypto.randomUUID(),
+            _id: undefined,
+            isCoupleSeat: false,
+            partnerSeatCode: null,
+            seatType: undefined,
+            seatTypeId: undefined,
+            code: "TRỐNG"
+          };
+        }
+
+        // Nếu là ghế bình thường, COPY y hệt loại ghế của ô ở hàng trên
+        return {
+          ...s,
+          id: crypto.randomUUID(),
+          _id: undefined,
+          isCoupleSeat: false,
+          partnerSeatCode: null,
+          // Copy thông tin loại ghế từ hàng trên (s.seatType)
+          seatType: s.seatType ? { ...s.seatType } : undefined,
+          seatTypeId: s.seatTypeId || s.seatType?._id,
+          code: ""
+        };
+      })
     };
 
     const updated = [...rows];
     updated.splice(rowIndex + 1, 0, newRow);
+
+    // Đồng bộ lại mã ghế (A1, A2...) và rowKey
     setRows(reindexAll(updated));
-    toast.success("Đã thêm hàng mới và đồng bộ lại loại ghế thường");
+    toast.success(`Đã thêm hàng mới copy định dạng từ hàng ${baseRow.rowKey}`);
   };
 
 
@@ -110,8 +186,6 @@ export default function SeatList({ roomId }: { roomId: string }) {
     setRows(reindexAll(updated));
     setSelectedSeat(null); // Đóng editor nếu hàng đang chọn bị xóa
   };
-
-
 
 
   const { mutate: updateSeats, isPending: isUpdating } = useUpdateSeatByRoom();
@@ -136,9 +210,14 @@ export default function SeatList({ roomId }: { roomId: string }) {
           seatPayload.partnerSeatCode = seat.partnerSeatCode;
         }
 
+        if (seat.isBlocked) {
+          seatPayload.seatTypeId = undefined;
+        }
+
         return seatPayload;
       });
     });
+    console.log(formattedSeats)
 
     // 2. Gọi mutation với đúng cấu trúc { roomId, data } như hook đã định nghĩa
     updateSeats(
@@ -168,19 +247,30 @@ export default function SeatList({ roomId }: { roomId: string }) {
           Sơ đồ ghế
         </h3>
 
-        {/* NÚT LƯU SƠ ĐỒ */}
-        <Button
-          onClick={handleSave}
-          disabled={isUpdating || rows.length === 0}
-          className="btn-custom"
-        >
-          {isUpdating ? (
-            <Loader2 className="animate-spin" size={18} />
-          ) : (
-            <Save size={18} />
+        <div className="flex flex-col gap-5">
+          {rows.length === 0 && (
+            <Button onClick={handleInitLayout} className="btn-custom">
+              <Plus size={16} /> Khởi tạo hàng ghế đầu tiên
+            </Button>
           )}
-          {isUpdating ? "Đang lưu..." : "Lưu sơ đồ"}
-        </Button>
+
+          {/* NÚT LƯU SƠ ĐỒ */}
+          <Button
+            onClick={handleSave}
+            disabled={isUpdating || rows.length === 0}
+            className="btn-custom"
+          >
+            {isUpdating ? (
+              <Loader2 className="animate-spin" size={18} />
+            ) : (
+              <Save size={18} />
+            )}
+            {isUpdating ? "Đang lưu..." : "Lưu sơ đồ"}
+          </Button>
+        </div>
+
+
+
       </div>
 
       <div className="space-y-4 inline-block">

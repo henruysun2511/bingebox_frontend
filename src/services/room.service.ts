@@ -22,4 +22,7 @@ export const RoomService = {
     delete(id: string) {
         return http.delete<ApiResponse<null>>(`/${prefix}/${id}`);
     },
+    changeStatus(id: string, status: string) {
+        return http.patch<ApiResponse<Room>>(`/${prefix}/change-status/${id}`, { status });
+    },
 };

@@ -29,7 +29,7 @@ export default function SeatItem({ seat, active, onClick }: Props) {
       className={`w-10 h-10 text-[10px] font-bold flex items-center justify-center cursor-pointer transition-all text-white
       ${active ? "ring-2 ring-white scale-110 z-10" : "hover:brightness-110 shadow-lg"}
       ${seat.isCoupleSeat
-          ? "rounded-none first:rounded-l-lg last:rounded-r-lg border-x border-white/10 w-[52px]"
+          ? "rounded-none first:rounded-l-lg last:rounded-r-lg border-x border-white/10"
           : "rounded-md"}
       `}
     >

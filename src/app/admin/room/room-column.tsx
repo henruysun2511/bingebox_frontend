@@ -1,13 +1,16 @@
-import { Badge } from "@/components/ui/badge"; // Giả định bạn có component Badge từ shadcn/ui
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Switch } from "@/components/ui/switch";
+import { BaseStatusEnum } from "@/constants/enum";
 import { Room } from "@/types/object";
 import { ColumnDef } from "@tanstack/react-table";
 import { EditIcon, Trash2 } from "lucide-react";
 
+
+
 export const roomColumns = (
     onEdit: (room: Room) => void,
-    onDelete: (id: string) => void
+    onDelete: (id: string) => void,
+    onChangeStatus: (id: string, status: string) => void
 ): ColumnDef<Room>[] => [
         {
             accessorKey: "name",
@@ -68,21 +71,20 @@ export const roomColumns = (
             accessorKey: "status",
             header: "Trạng thái",
             cell: ({ row }) => {
-                const status = row.original.status;
-                const isActive = status === "active";
+                const room = row.original;
+                const isActive = room.status === BaseStatusEnum.ACTIVE;
 
                 return (
-                    <Badge
-                        className={cn(
-                            "capitalize font-normal",
-                            isActive
-                                ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20"
-                                : "bg-neutral-500/10 text-neutral-500 border-neutral-500/20"
-                        )}
-                        variant="outline"
-                    >
-                        {isActive ? "Hoạt động" : status}
-                    </Badge>
+                    <div className="flex items-center gap-2">
+                        <Switch
+                            checked={isActive}
+                            onCheckedChange={(checked) => {
+                                const newStatus = checked ? BaseStatusEnum.ACTIVE : BaseStatusEnum.INACTIVE;
+                                onChangeStatus(room._id, newStatus);
+                            }}
+                            className="switch-custom"
+                        />
+                    </div>
                 );
             },
         },

@@ -39,3 +39,14 @@ export const useDeleteRoom = () => {
         onSuccess: () => qc.invalidateQueries({ queryKey: ROOM_QUERY_KEY }),
     });
 };
+
+export const useChangeRoomStatus = () => {
+    const qc = useQueryClient();
+    return useMutation({
+        mutationFn: ({ id, status }: { id: string; status: string }) =>
+            RoomService.changeStatus(id, status),
+        onSuccess: () => {
+            qc.invalidateQueries({ queryKey: ROOM_QUERY_KEY });
+        },
+    });
+};
