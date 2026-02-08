@@ -191,20 +191,15 @@
   }
 
   .select-trigger-custom {
-    @apply w-sm cursor-pointer bg-neutral-900 border-neutral-800 text-neutral-100 rounded-md transition-all duration-200 outline-none border px-3 py-2 focus:ring-2 focus:ring-neutral-700 focus:border-neutral-600;
+    @apply w-xs cursor-pointer border border-neutral-800 bg-neutral-900 px-3 py-2 text-neutral-100 rounded-md transition-all outline-none focus:ring-2 focus:ring-neutral-700/50 focus:border-neutral-600;
   }
 
   .select-content-custom {
-    @apply bg-neutral-950 border-neutral-800 text-neutral-100 shadow-2xl;
+    @apply bg-neutral-950 border border-neutral-800 text-neutral-100 shadow-2xl;
   }
 
   .select-item-custom {
-    @apply transition-colors cursor-pointer rounded-sm;
-
-    &:focus {
-      background-color: var(--color-blue);
-      @apply text-white cursor-pointer rounded-md;
-    }
+    @apply cursor-pointer rounded-sm transition-colors focus:bg-[var(--color-blue)] focus:text-white focus:rounded-md;
   }
 
   .form-input-custom {

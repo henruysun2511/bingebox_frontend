@@ -36,11 +36,15 @@ interface FormatRoomParams extends Pagination {
 export type { FormatRoomParams };
 
 interface RoomParams extends Pagination {
-    name?: string;
-    cinemaId?: string;
+  name?: string;
+  cinemaId?: string;
 }
 export type { RoomParams };
 
-
-
+interface ShowtimeParams extends Pagination {
+  movieId?: string;
+  roomId?: string;
+  date?: string;
+}
+export type { ShowtimeParams };
 

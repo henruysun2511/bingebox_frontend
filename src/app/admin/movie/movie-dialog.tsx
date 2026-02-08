@@ -15,7 +15,7 @@ import { useFileChange } from "@/hooks/useFileChange";
 import { cn } from "@/lib/utils";
 import { useActorList } from "@/queries/useActorQuery";
 import { useCategoryList } from "@/queries/useCategoryQuery";
-import { useCreateMovie, useMovieActors, useUpdateMovie } from "@/queries/useMovieQuery";
+import { useCreateMovie, useUpdateMovie } from "@/queries/useMovieQuery";
 import { MovieInput, MovieSchema } from "@/schemas/movie.schema";
 import { Movie } from "@/types/object";
 import { handleError } from "@/utils/error";
@@ -71,9 +71,6 @@ export function MovieDialog({ open, onClose, movie }: Props) {
         limit: 10,
         name: useDebounce(search, 500),
     });
-    const { data: movieActorsRes, isLoading: loadingActors } = useMovieActors(movie?._id, {
-        enabled: open && isEdit && !!movie?._id
-    });
 
     const categories = categoryRes?.data || [];
     const actors = actorRes?.data || [];
@@ -92,10 +89,6 @@ export function MovieDialog({ open, onClose, movie }: Props) {
                     format: movie.format || [],
                 } as any);
 
-                // if (movieActorsRes?.data) {
-                //     const actorIds = movieActorsRes.data.map((a: any) => a._id);
-                //     form.setValue("actors", actorIds);
-                // }
             } else {
                 form.reset(defaultValues);
             }

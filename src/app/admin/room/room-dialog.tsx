@@ -115,7 +115,7 @@ export function RoomDialog({ open, onClose, room }: Props) {
                                 <FormControl>
                                     <Input className="form-input-custom" placeholder="Ví dụ: P01" {...field} />
                                 </FormControl>
-                                <FormMessage />
+                                <FormMessage className="form-error-custom" />
                             </FormItem>
                         )} />
 
@@ -176,7 +176,7 @@ export function RoomDialog({ open, onClose, room }: Props) {
                                         </Command>
                                     </PopoverContent>
                                 </Popover>
-                                <FormMessage />
+                                <FormMessage className="form-error-custom" />
                             </FormItem>
                         )} />
 
@@ -227,7 +227,7 @@ export function RoomDialog({ open, onClose, room }: Props) {
                                         </Command>
                                     </PopoverContent>
                                 </Popover>
-                                <FormMessage />
+                                <FormMessage className="form-error-custom" />
                             </FormItem>
                         )} />
 
