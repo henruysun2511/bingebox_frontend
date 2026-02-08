@@ -47,10 +47,10 @@ export default function CategoryPage() {
     return (
         <div className="space-y-4">
             {/* FILTER BAR */}
-            <div className="flex justify-between items-center">
-                <Button className="btn-custom" onClick={() => setOpen(true)}>
-                    <Plus size={16} />
-                    Thêm thể loại
+             <div className="flex justify-between items-center">
+                <h1 className="text-2xl font-bold text-white">Thể loại</h1>
+                <Button className="btn-custom" onClick={() => {  setOpen(true); }}>
+                    <Plus size={16} className="mr-2" /> Thêm thể loại
                 </Button>
             </div>
 

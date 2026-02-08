@@ -117,6 +117,28 @@ interface Room {
 }
 export type { Room };
 
+interface Showtime extends BaseObject {
+    _id?: string;
+    movie: string;
+    room: string;
+    startTime: Date
+    endTime: Date
+    status: BaseStatusEnum
+    timeslot: string;
+}
+
+export type { Showtime };
+
+interface TimeSlot extends BaseObject {
+    _id?: string,
+    name: string,
+    startTime: string,
+    endTime: string,
+}
+
+export type { TimeSlot };
+
+
 
 
 

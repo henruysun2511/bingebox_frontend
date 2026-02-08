@@ -263,38 +263,32 @@
 
 
   .switch-custom {
-    @apply relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border border-neutral-700 bg-neutral-800;
-    transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    @apply inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-700 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+    background-color: theme('colors.neutral.800');
+    /* Màu nền khi OFF */
   }
 
-  /* ON */
+  /* Trạng thái khi ON (checked) */
   .switch-custom[data-state="checked"] {
     background-color: var(--color-blue);
-    border-color: var(--color-blue);
-    box-shadow: 0 0 8px rgba(0, 74, 173, 0.35);
   }
 
-  /* THUMB */
-  .switch-custom>span {
-    @apply pointer-events-none block h-5 w-5 rounded-full bg-white shadow-md;
-    transform: translateX(2px);
-    transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 150ms ease;
+  /* Nút tròn (Thumb) */
+  .switch-custom-thumb {
+    @apply pointer-events-none block h-5 w-5 rounded-full bg-white shadow-lg ring-0 transition-transform;
+    transform: translateX(0);
   }
 
-  /* ON position */
-  .switch-custom[data-state="checked"]>span {
+  /* Vị trí Thumb khi ON */
+  .switch-custom[data-state="checked"] .switch-custom-thumb {
     transform: translateX(20px);
+    /* Dịch chuyển sang phải */
   }
 
-  /* ACTIVE chỉ đổi shadow, KHÔNG scale để tránh lệch */
-  .switch-custom:active>span {
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
-  }
-
-  /* focus */
-  .switch-custom:focus-visible {
-    @apply outline-none ring-2 ring-neutral-600;
+  /* Hiệu ứng khi nhấn giữ (Active) */
+  .switch-custom:active .switch-custom-thumb {
+    @apply w-6;
+    /* Giãn nhẹ thumb tạo hiệu ứng đàn hồi */
   }
 
 }

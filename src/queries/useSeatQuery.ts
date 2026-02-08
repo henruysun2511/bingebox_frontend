@@ -1,4 +1,5 @@
 import { SeatService } from "@/services/seat.service";
+import { Seat } from "@/types/object";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const SEAT_QUERY_KEY = ["seats"];
@@ -20,7 +21,7 @@ export const useUpdateSeatByRoom = () => {
     const qc = useQueryClient();
     
     return useMutation({
-        mutationFn: ({ roomId, data }: { roomId: string; data: any }) =>
+        mutationFn: ({ roomId, data }: { roomId: string; data: {seats: Seat[]} }) =>
             SeatService.updateSeatsByRoom(roomId, data),
         onSuccess: (_, { roomId }) => {
             // Invalidate dữ liệu của đúng phòng đó để fetch lại

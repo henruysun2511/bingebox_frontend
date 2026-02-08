@@ -76,7 +76,7 @@ const data = {
         { title: "Rạp", url: "/admin/cinema" },
         { title: "Phòng chiếu ", url: "/admin/room" },
         { title: "Định dạng phòng", url: "/admin/formatRoom" },
-        { title: "Phòng chiếu - Ghế", url: "/admin/seat" },
+        { title: "Sơ đồ ghế", url: "/admin/seat" },
         { title: "Loại ghế", url: "/admin/seatType" },
       ],
     },
