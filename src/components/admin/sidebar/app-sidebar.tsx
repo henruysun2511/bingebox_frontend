@@ -160,13 +160,13 @@ const data = {
   ],
   navSecondary: [
     {
-      title: "Settings",
-      url: "#",
+      title: "Cài đặt trang web",
+      url: "/admin/setting",
       icon: IconSettings,
     },
     {
-      title: "Get Help",
-      url: "#",
+      title: "Tài khoản của tôi",
+      url: "/admin/profile",
       icon: IconHelp,
     },
   ],

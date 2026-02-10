@@ -79,26 +79,26 @@ export type { FormatRoom };
 
 
 interface SeatType extends BaseObject {
-  _id: string;
-  name: string;
-  color: string;
+    _id: string;
+    name: string;
+    color: string;
 };
 export type { SeatType };
 
 interface Seat {
-  _id: string;
-  room: string;
-  code: string;
-  row: string;
-  column: number | null;
-  position: {
-    x: number;
-    y: number;
-  };
-  isBlocked: boolean;
-  seatType?: SeatType;
-  isCoupleSeat?: boolean;
-  partnerSeat?: string;
+    _id: string;
+    room: string;
+    code: string;
+    row: string;
+    column: number | null;
+    position: {
+        x: number;
+        y: number;
+    };
+    isBlocked: boolean;
+    seatType?: SeatType;
+    isCoupleSeat?: boolean;
+    partnerSeat?: string;
 };
 
 export type { Seat };
@@ -106,14 +106,14 @@ export type { Seat };
 interface Room {
     _id: string;
     name: string;
-    cinema: string | Cinema; 
-    format: string | FormatRoom; 
+    cinema: string | Cinema;
+    format: string | FormatRoom;
     status: BaseStatusEnum;
     seatLayout?: {
         rows: number,
         columns: number
     };
-    totalSeats?: number; 
+    totalSeats?: number;
 }
 export type { Room };
 
@@ -137,6 +137,33 @@ interface TimeSlot extends BaseObject {
 }
 
 export type { TimeSlot };
+
+interface Setting extends BaseObject {
+    logo: string;
+    name: string;
+    company: string;
+    email: string;
+    address: string;
+    hotline: string;
+    workHours?: string;
+    social?: {
+        facebook?: string;
+        instagram?: string;
+        tiktok?: string;
+        zalo?: string;
+    }
+    banner?: string[];
+    popup: [
+        {
+            image: string,
+            link: string,
+            isActive: BaseStatusEnum
+        }
+    ]
+    metaTitle: string,
+    metaDescription: string,
+}
+export type { Setting };
 
 
 

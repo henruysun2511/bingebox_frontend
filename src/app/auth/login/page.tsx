@@ -52,7 +52,8 @@ export default function LoginForm() {
             {/* Overlay */}
             <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
 
-            <Card className="!w-[450px] bg-black/60 border-none backdrop-blur-xl shadow-2xl z-10 p-6 h-screen rounded-none flex flex-col justify-center">
+
+            <Card className="!w-[450px] bg-gradient  border-none backdrop-blur-xl shadow-2xl z-10 p-6 h-screen rounded-none flex flex-col justify-center">
                 <CardContent className="flex flex-col items-center">
                     <h2 className="text-[35px] text-white font-bold mb-8 tracking-wider text-center">
                         LOGIN
