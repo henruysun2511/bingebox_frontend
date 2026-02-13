@@ -38,3 +38,25 @@ export const useDeleteShowtime = () => {
         onSuccess: () => qc.invalidateQueries({ queryKey: SHOWTIME_QUERY_KEY }),
     });
 };
+
+export const useShowtimesByMovie = (movieId: string, params: any) => {
+    return useQuery({
+        queryKey: [...SHOWTIME_QUERY_KEY, "by-movie", movieId],
+        queryFn: async () => {
+            const res = await ShowtimeService.getShowtimesByMovie(movieId, params);
+            return res.data;
+        },
+        enabled: !!movieId, // Chỉ chạy khi có movieId
+    });
+};
+
+export const useShowtimesGroupByRoom = (cinemaId: string, params: any) => {
+    return useQuery({
+        queryKey: [...SHOWTIME_QUERY_KEY, "group-by-room", cinemaId, params],
+        queryFn: async () => {
+            const res = await ShowtimeService.getShowtimesGroupByRoom(cinemaId, params);
+            return res.data;
+        },
+        enabled: !!cinemaId, // Chỉ chạy khi có cinemaId
+    });
+};

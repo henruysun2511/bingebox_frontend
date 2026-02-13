@@ -19,7 +19,7 @@ export const MovieService = {
     },
 
     getDetail(id: string) {
-        return http.get<ApiResponse<Movie>>(`/${prefix}/detail/${id}`);
+        return http.get<ApiResponse<Movie>>(`/${prefix}/${id}`);
     },
 
     create(payload: MovieInput) {

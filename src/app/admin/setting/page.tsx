@@ -100,7 +100,6 @@ export default function SettingPage() {
 
     const handleCancel = () => {
         if (settings) {
-            // Mapping lại dữ liệu giống hệt logic trong useEffect
             const formattedData: SettingInput = {
                 logo: settings.logo ?? "",
                 name: settings.name ?? "",

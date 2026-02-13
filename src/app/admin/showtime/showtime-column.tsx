@@ -1,8 +1,9 @@
 import { ImagePreview } from "@/components/common/imagePreview/image-preview";
 import { Button } from "@/components/ui/button";
+import { SUBTITLE_TYPE_OPTIONS } from "@/constants/filter";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
-import { Building2, Calendar as CalendarIcon, Clock, EditIcon, Monitor, Trash2 } from "lucide-react";
+import { Building2, Calendar as CalendarIcon, Clock, EditIcon, Languages, Monitor, Trash2 } from "lucide-react";
 
 export const showtimeColumns = (
     onEdit: (data: any) => void,
@@ -26,6 +27,28 @@ export const showtimeColumns = (
                             <div className="font-medium text-white line-clamp-1">{movie?.name}</div>
                             <div className="text-[10px] text-neutral-500">{movie?.duration} phút</div>
                         </div>
+                    </div>
+                );
+            },
+        },
+       {
+            accessorKey: "subtitle",
+            header: "Phụ đề",
+            cell: ({ row }) => {
+                const value = row.original.subtitle;
+                
+                // Tìm nhãn tương ứng từ mảng options
+                const option = SUBTITLE_TYPE_OPTIONS.find((opt) => opt.value === value);
+                const label = option ? option.label : value;
+
+                return (
+                    <div className="flex items-center gap-2">
+                        <div className="p-1 rounded bg-blue-500/10">
+                            <Languages size={14} className="text-blue-400" />
+                        </div>
+                        <span className="text-sm font-medium text-neutral-200">
+                            {label || "N/A"}
+                        </span>
                     </div>
                 );
             },

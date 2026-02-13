@@ -39,7 +39,7 @@ const defaultValues = {
     releaseDate: "",
     director: "",
     description: "",
-    subtitle: "",
+    subtitle: [],
     poster: "",
     banner: "",
     trailer: "",
@@ -87,6 +87,7 @@ export function MovieDialog({ open, onClose, movie }: Props) {
                         typeof actor === 'object' ? actor._id : actor
                     ) || [],
                     format: movie.format || [],
+                    subtitle: Array.isArray(movie.subtitle) ? movie.subtitle : [],
                 } as any);
 
             } else {
@@ -210,30 +211,6 @@ export function MovieDialog({ open, onClose, movie }: Props) {
                                     </FormItem>
                                 )} />
 
-                                <FormField
-                                    name="subtitle"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel className="form-label-custom">Loại phụ đề</FormLabel>
-                                            <Select value={field.value} onValueChange={field.onChange}>
-                                                <FormControl>
-                                                    <SelectTrigger className="form-input-custom">
-                                                        <SelectValue placeholder="Chọn loại" />
-                                                    </SelectTrigger>
-                                                </FormControl>
-                                                <SelectContent className="select-content-custom z-[100]">
-                                                    {SUBTITLE_TYPE_OPTIONS.map((opt) => (
-                                                        <SelectItem key={opt.value} value={opt.value} className="select-item-custom uppercase">
-                                                            {opt.label}
-                                                        </SelectItem>
-                                                    ))}
-                                                </SelectContent>
-                                            </Select>
-                                            <FormMessage className="form-error-custom" />
-                                        </FormItem>
-                                    )}
-                                />
-
                                 <FormField name="agePermission" render={({ field }) => (
                                     <FormItem>
                                         <FormLabel className="form-label-custom">Độ tuổi</FormLabel>
@@ -256,8 +233,52 @@ export function MovieDialog({ open, onClose, movie }: Props) {
                                 )} />
                             </div>
 
+
+
+
+
+
                             {/* ========== FORMAT & CATEGORIES ========== */}
                             <div className="grid grid-cols-2 gap-8 p-4 border border-neutral-800 rounded-lg bg-neutral-900/20">
+                                {/* SUBTITLE (Checkbox Group) */}
+                                <FormField
+                                    control={form.control}
+                                    name="subtitle"
+                                    render={({ field }) => (
+                                        <FormItem className="space-y-4">
+                                            <FormLabel className="form-label-custom form-label-custom border-b border-neutral-800 pb-2 mb-4 block">Độ tuổi</FormLabel>
+                                            <div className="flex flex-wrap gap-6">
+                                                {SUBTITLE_TYPE_OPTIONS.map((option) => (
+                                                    <FormItem
+                                                        key={option.value}
+                                                        className="flex flex-row items-center space-x-3 space-y-0"
+                                                    >
+                                                        <FormControl>
+                                                            <Checkbox
+                                                                // Kiểm tra xem giá trị option có trong mảng field.value không
+                                                                checked={field.value?.includes(option.value)}
+                                                                onCheckedChange={(checked) => {
+                                                                    const currentValue = field.value || [];
+                                                                    const newValue = checked
+                                                                        ? [...currentValue, option.value]
+                                                                        : currentValue.filter((val: string) => val !== option.value);
+
+                                                                    field.onChange(newValue);
+                                                                }}
+                                                               className="checkbox-custom"
+                                                            />
+                                                        </FormControl>
+                                                        <FormLabel className="text-sm font-normal text-neutral-300 cursor-pointer">
+                                                            {option.label}
+                                                        </FormLabel>
+                                                    </FormItem>
+                                                ))}
+                                            </div>
+                                            <FormMessage className="form-error-custom" />
+                                        </FormItem>
+                                    )}
+                                />
+
                                 <FormField name="format" render={({ field }) => (
                                     <FormItem>
                                         <FormLabel className="form-label-custom border-b border-neutral-800 pb-2 mb-4 block">Định dạng phim</FormLabel>

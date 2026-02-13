@@ -1,6 +1,6 @@
 import { ShowtimeInput } from "@/schemas/showtime.schema";
 import { ApiResponse } from "@/types/body";
-import { Showtime } from "@/types/object";
+import { Showtime, ShowtimeRoom } from "@/types/object";
 import { ShowtimeParams } from "@/types/param";
 import http from "@/utils/http";
 
@@ -19,4 +19,10 @@ export const ShowtimeService = {
     delete(id: string) {
         return http.delete<ApiResponse<null>>(`/${prefix}/${id}`);
     },
+    getShowtimesByMovie(movieId: string, params: ShowtimeParams) {
+        return http.get<ApiResponse<Showtime[]>>(`/${prefix}/movies/${movieId}`, { params });
+    },
+    getShowtimesGroupByRoom(cinemaId: string, params: ShowtimeParams) {
+        return http.get<ApiResponse<ShowtimeRoom[]>>(`/${prefix}/cinemas/${cinemaId}/rooms`, { params });
+    }
 };

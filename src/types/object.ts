@@ -44,12 +44,12 @@ interface Movie extends BaseObject {
     releaseDate: string;
     director?: string;
     description: string;
-    subtitle: string;
+    subtitle: string[];
     poster: string;
     banner: string;
     trailer: string;
     actors: string[];
-    categories: string[];
+    categories: Category[];
     nationality?: string;
     agePermission: AgePermissionTypeEnum;
     status: AgePermissionTypeEnum;
@@ -121,6 +121,7 @@ interface Showtime extends BaseObject {
     _id?: string;
     movie: string;
     room: string;
+    subtitle: string;
     startTime: Date
     endTime: Date
     status: BaseStatusEnum
@@ -128,6 +129,21 @@ interface Showtime extends BaseObject {
 }
 
 export type { Showtime };
+
+interface ShowtimeRoom {
+    _id: string;
+    roomName: string;
+    showtimes:
+    {
+        _id: string;
+        movie: Movie;
+        startTime: string,
+        endTime: string,
+        status: BaseStatusEnum.ACTIVE,
+        subtitle: string
+    }[]
+}
+export type { ShowtimeRoom };
 
 interface TimeSlot extends BaseObject {
     _id?: string,

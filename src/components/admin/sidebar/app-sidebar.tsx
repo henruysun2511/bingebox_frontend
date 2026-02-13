@@ -86,6 +86,7 @@ const data = {
       icon: IconCalendarEvent, // Thay đổi icon lịch trình
       items: [
         { title: "Suất chiếu", url: "/admin/showtime" },
+        { title: "Suất chiếu theo phòng", url: "/admin/showtimeGroupByRoom" },
         { title: "Khung giờ", url: "/admin/timeSlot" },
       ],
     },

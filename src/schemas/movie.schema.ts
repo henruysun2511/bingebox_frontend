@@ -6,7 +6,7 @@ export const MovieSchema = z.object({
   releaseDate: z.string().min(1, "Ngày phát hành là bắt buộc"),
   director: z.string().optional().default(""), 
   description: z.string().min(1, "Mô tả phim là bắt buộc"),
-  subtitle: z.string().min(1, "Loại phụ đề là bắt buộc"),
+  subtitle: z.array(z.string()).min(1, "Phải có ít nhất một loại sub"),
   poster: z.string().url("Link poster không hợp lệ"),
   banner: z.string().url("Link banner không hợp lệ"),
   trailer: z.string().url("Link trailer không hợp lệ"),

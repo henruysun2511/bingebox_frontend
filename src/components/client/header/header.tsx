@@ -6,18 +6,18 @@ import { useRouter } from "next/navigation";
 // Shadcn Components
 import { Button } from "@/components/ui/button";
 import {
-    NavigationMenu,
-    NavigationMenuItem,
-    NavigationMenuLink,
-    NavigationMenuList,
-    navigationMenuTriggerStyle,
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import {
-    Sheet,
-    SheetContent,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
 } from "@/components/ui/sheet";
 import { useLogout } from "@/queries/useAuthQuery";
 import { useAuthStore } from "@/stores/useAuthStore";
@@ -28,14 +28,13 @@ const menuItems = [
   { title: "Khuyến mãi", href: "/promotion" },
   { title: "Tin tức", href: "/new" },
   { title: "Giá vé", href: "/price" },
-  { title: "Blog phim", href: "/blogCinematic" },
-  { title: "Magic box", href: "/magicBox" },
+  { title: "Bàn luận điện ảnh", href: "/comment" },
   { title: "Về chúng tôi", href: "/aboutUs" },
 ];
 
-export default function Header() {
+export default function Header({ logo }: { logo: string }) {
   const router = useRouter();
-  
+
   //Lấy thông tin user và trạng thái từ store
   const user = useAuthStore((state) => state.user);
   const isHydrated = useAuthStore((state) => state.isHydrated);
@@ -67,8 +66,8 @@ export default function Header() {
           <Button asChild className={`${buttonClass} bg-gradient-to-r from-[#5de0e6] to-[#004aad] cursor-pointer`}>
             <Link href="/profile">Xin chào, {user.username}</Link>
           </Button>
-          <Button 
-            onClick={handleLogout} 
+          <Button
+            onClick={handleLogout}
             disabled={logoutMutation.isPending}
             className={`${buttonClass} bg-gradient-to-r from-[#ff5757] to-[#8c52ff] cursor-pointer`}
           >
@@ -93,11 +92,11 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 w-full !z-[999] bg-[#2e4ba6] shadow-[0_3px_3px_rgba(0,0,0,0.1)] px-4 md:px-[50px]">
       <div className="flex items-center justify-between h-20 max-w-7xl mx-auto">
-        
+
         {/* Logo Section */}
         <Link href="/" className="flex items-center gap-2 group">
           <img
-            src="https://henruysun2511.github.io/BingeBox_Project/assets/images/bingebox_logo.png"
+            src={logo || "https://henruysun2511.github.io/BingeBox_Project/assets/images/bingebox_logo.png"}
             alt="BingeBox Logo"
             className="w-auto h-16 md:h-20"
           />
@@ -111,13 +110,14 @@ export default function Header() {
           <NavigationMenuList>
             {menuItems.map((item) => (
               <NavigationMenuItem key={item.href}>
-                <Link href={item.href} legacyBehavior passHref>
-                  <NavigationMenuLink 
+                <NavigationMenuLink asChild>
+                  <Link
+                    href={item.href}
                     className={`${navigationMenuTriggerStyle()} bg-transparent text-white hover:bg-blue-700 hover:text-white h-20 px-4 rounded-none transition-colors`}
                   >
-                    {item.title}
-                  </NavigationMenuLink>
-                </Link>
+                    <div className="text-sm">{item.title}</div>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>
@@ -125,7 +125,7 @@ export default function Header() {
 
         {/* Desktop Buttons */}
         <div className="hidden lg:block">
-            {renderAuthButtons(false)}
+          {renderAuthButtons(false)}
         </div>
 
         {/* Mobile Menu */}
@@ -144,8 +144,8 @@ export default function Header() {
                 <ul className="flex flex-col gap-2">
                   {menuItems.map((item) => (
                     <li key={item.href}>
-                      <Link 
-                        href={item.href} 
+                      <Link
+                        href={item.href}
                         className="block py-3 px-4 hover:bg-blue-700 rounded-md transition-colors"
                       >
                         {item.title}

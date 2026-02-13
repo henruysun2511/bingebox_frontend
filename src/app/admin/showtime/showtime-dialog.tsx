@@ -42,6 +42,15 @@ export function ShowtimeDialog({ open, onClose, showtime }: Props) {
     });
 
     const { data: movies } = useMovieList({ limit: 20 });
+    const moviesData = movies?.data || [];
+
+    //Theo dõi movieId người dùng đang chọn
+    const selectedMovieId = form.watch("movie");
+
+    //Tìm phim được chọn để lấy mảng subtitle của phim đó
+    const selectedMovie = moviesData.find((m: any) => m._id === selectedMovieId);
+    const movieSubtitles = selectedMovie?.subtitle || [];
+
     const { data: cinemas } = useCinemaList({ limit: 20 });
     const { data: rooms } = useRoomList(
         { cinemaId: selectedCinema }
@@ -50,6 +59,11 @@ export function ShowtimeDialog({ open, onClose, showtime }: Props) {
     const createMutation = useCreateShowtime();
     const updateMutation = useUpdateShowtime(); // Sử dụng mutation update
 
+    useEffect(() => {
+        // Khi movieId thay đổi, reset subtitle về rỗng
+        form.setValue("subtitle", "");
+    }, [selectedMovieId, form]);
+
     // Logic Reset Form khi đóng/mở hoặc chuyển chế độ Thêm/Sửa
     useEffect(() => {
         if (open) {
@@ -57,13 +71,14 @@ export function ShowtimeDialog({ open, onClose, showtime }: Props) {
                 // Nếu là Edit, trích xuất ID từ Object và format lại ngày tháng
                 const cinemaId = typeof showtime.room?.cinema === 'object'
                     ? showtime.room.cinema._id
-                    : showtime.room?.cinema;
+                    : showtime.cinema;
 
                 setSelectedCinema(cinemaId || "");
 
                 form.reset({
                     movie: typeof showtime.movie === 'object' ? showtime.movie._id : showtime.movie,
                     room: typeof showtime.room === 'object' ? showtime.room._id : showtime.room,
+                    subtitle: showtime.subtitle,
                     startTime: showtime.startTime
                         ? toDatetimeLocal(showtime.startTime)
                         : "",
@@ -127,6 +142,39 @@ export function ShowtimeDialog({ open, onClose, showtime }: Props) {
                                 <FormMessage className="form-error-custom" />
                             </FormItem>
                         )} />
+
+                        <FormField
+                            control={form.control}
+                            name="subtitle"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="form-label-custom">Loại phụ đề (Dựa trên phim)</FormLabel>
+                                    <Select
+                                        disabled={!selectedMovieId} // Chỉ cho chọn khi đã chọn phim
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger className="form-input-custom h-11 text-white">
+                                                <SelectValue placeholder={selectedMovieId ? "Chọn phụ đề" : "Vui lòng chọn phim trước"} />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent className="bg-neutral-900 border-neutral-800 text-white">
+                                            {movieSubtitles.length > 0 ? (
+                                                movieSubtitles.map((sub: string) => (
+                                                    <SelectItem key={sub} value={sub}>
+                                                        {sub === "VIETSUB" ? "Vietsub" : sub === "LODING" ? "Lồng tiếng" : sub}
+                                                    </SelectItem>
+                                                ))
+                                            ) : (
+                                                <div className="p-2 text-sm text-neutral-500">Phim này không có dữ liệu phụ đề</div>
+                                            )}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage className="form-error-custom" />
+                                </FormItem>
+                            )}
+                        />
 
                         {/* Chọn Địa điểm: Rạp -> Phòng */}
                         <div className="grid grid-cols-2 gap-4">

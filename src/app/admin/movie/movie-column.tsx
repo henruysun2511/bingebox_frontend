@@ -1,7 +1,7 @@
 import { ImagePreview } from "@/components/common/imagePreview/image-preview";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { AgePermissionTypeEnum, MovieStatusEnum, SubtitleTypeEnum } from "@/constants/enum";
+import { AgePermissionTypeEnum, MovieStatusEnum } from "@/constants/enum";
 import { AGE_PERMISSION_OPTIONS, MOVIE_STATUS_OPTIONS, SUBTITLE_TYPE_OPTIONS } from "@/constants/filter";
 import { Movie } from "@/types/object";
 import { ColumnDef } from "@tanstack/react-table";
@@ -51,18 +51,18 @@ export const movieColumns = (
                 return date ? new Date(date).toLocaleDateString("vi-VN") : "-";
             },
         },
-       {
+        {
             accessorKey: "agePermission",
             header: "Độ tuổi",
             cell: ({ getValue }) => {
                 const value = getValue() as AgePermissionTypeEnum;
-                
+
                 // Tìm option tương ứng trong hằng số
                 const option = AGE_PERMISSION_OPTIONS.find(opt => opt.value === value);
 
                 return (
-                    <Badge 
-                        variant="outline" 
+                    <Badge
+                        variant="outline"
                         className={`${option?.className || "border-neutral-500 text-neutral-500"} font-bold`}
                     >
                         {option?.shortLabel || value}
@@ -74,14 +74,26 @@ export const movieColumns = (
             accessorKey: "subtitle",
             header: "Phụ đề",
             cell: ({ getValue }) => {
-                const value = getValue() as SubtitleTypeEnum;
-                // Tìm option khớp với giá trị hiện tại
-                const option = SUBTITLE_TYPE_OPTIONS.find((opt) => opt.value === value);
+                const values = getValue() as string[] || []; 
+
+                const labels = values.map((val) => {
+                    const option = SUBTITLE_TYPE_OPTIONS.find((opt) => opt.value === val);
+                    return option?.label || val;
+                });
+
+                if (labels.length === 0) return <span className="text-neutral-500">N/A</span>;
 
                 return (
-                    <>
-                        {option?.label || value}
-                    </>
+                    <div className="flex flex-wrap gap-1">
+                        {labels.map((label, index) => (
+                            <span
+                                key={index}
+                                className="px-2 py-0.5 bg-neutral-800 text-neutral-300 border border-neutral-700 rounded text-[11px] whitespace-nowrap"
+                            >
+                                {label}
+                            </span>
+                        ))}
+                    </div>
                 );
             },
         },
