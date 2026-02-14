@@ -14,6 +14,30 @@ export const useActorList = (params: ActorParams) => {
     });
 };
 
+export const useActorDetail = (id: string | undefined) => {
+    return useQuery({
+        queryKey: [...ACTOR_QUERY_KEY, id], 
+        queryFn: async () => {
+            if (!id) return null;
+            const res = await ActorService.getDetail(id);
+            return res.data;
+        },
+        enabled: !!id, 
+    });
+};
+
+export const useActorMovies = (id: string | undefined) => {
+    return useQuery({
+        queryKey: [...ACTOR_QUERY_KEY, id, "movies"], 
+        queryFn: async () => {
+            if (!id) return null;
+            const res = await ActorService.getActorMovie(id);
+            return res.data;
+        },
+        enabled: !!id, 
+    });
+};
+
 export const useCreateActor = () => {
     const qc = useQueryClient();
     return useMutation({

@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <>
       <Carousel images={activeBanners} />
-      <div className="max-w-[1400px] mx-auto px-15 py-10">
+      <div className="max-w-[1400px] mx-auto px-10 py-10">
         <div className="flex gap-10 items-start">
 
           {/* LEFT CONTENT */}
@@ -37,8 +37,8 @@ export default function Home() {
 
           {/* RIGHT SIDEBAR */}
           <div className="w-[260px] shrink-0">
+            <SectionTitle title="Khuyến mãi" />
             <PromotionList
-              title="Khuyến mãi"
               promotions={[
                 "/images/promo1.jpg",
                 "/images/promo2.jpg",

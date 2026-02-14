@@ -47,7 +47,7 @@ export default function MovieDetailPage() {
                     </div>
                 </div>
             </div>
-            <div className="pl-80">
+            <div className="px-80">
                 {/* SECTION 2 - INFO */}
                 <div className="relative -mt-25 z-10 mb-20">
                     <div className="container mx-auto px-6">
@@ -151,9 +151,10 @@ export default function MovieDetailPage() {
                         <div className="flex gap-8 mt-8">
                             {movie.actors?.length ? (
                                 movie.actors.map((actor: any) => (
-                                    <div
+                                    <Link
                                         key={actor._id}
-                                        className="flex flex-col items-center group"
+                                        className="flex flex-col items-center group cursor-pointer"
+                                        href={`/actor/${actor._id}`}
                                     >
                                         <div className="w-[110px] h-[110px] rounded-full overflow-hidden shadow-lg group-hover:scale-105 transition duration-300">
                                             <img
@@ -166,7 +167,7 @@ export default function MovieDetailPage() {
                                         <div className="mt-3 text-sm text-center text-white/80">
                                             {actor.name || "N/A"}
                                         </div>
-                                    </div>
+                                    </Link>
                                 ))
                             ) : (
                                 <p>N/A</p>

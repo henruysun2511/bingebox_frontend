@@ -68,7 +68,7 @@ export function MovieDialog({ open, onClose, movie }: Props) {
 
     const { data: categoryRes } = useCategoryList();
     const { data: actorRes, isFetching } = useActorList({
-        limit: 10,
+        limit: 20,
         name: useDebounce(search, 500),
     });
 
@@ -88,6 +88,7 @@ export function MovieDialog({ open, onClose, movie }: Props) {
                     ) || [],
                     format: movie.format || [],
                     subtitle: Array.isArray(movie.subtitle) ? movie.subtitle : [],
+                    releaseDate: movie.releaseDate ? movie.releaseDate.split("T")[0] : "",
                 } as any);
 
             } else {
@@ -233,11 +234,6 @@ export function MovieDialog({ open, onClose, movie }: Props) {
                                 )} />
                             </div>
 
-
-
-
-
-
                             {/* ========== FORMAT & CATEGORIES ========== */}
                             <div className="grid grid-cols-2 gap-8 p-4 border border-neutral-800 rounded-lg bg-neutral-900/20">
                                 {/* SUBTITLE (Checkbox Group) */}
@@ -246,7 +242,7 @@ export function MovieDialog({ open, onClose, movie }: Props) {
                                     name="subtitle"
                                     render={({ field }) => (
                                         <FormItem className="space-y-4">
-                                            <FormLabel className="form-label-custom form-label-custom border-b border-neutral-800 pb-2 mb-4 block">Độ tuổi</FormLabel>
+                                            <FormLabel className="form-label-custom form-label-custom border-b border-neutral-800 pb-2 mb-4 block">Loại sub</FormLabel>
                                             <div className="flex flex-wrap gap-6">
                                                 {SUBTITLE_TYPE_OPTIONS.map((option) => (
                                                     <FormItem

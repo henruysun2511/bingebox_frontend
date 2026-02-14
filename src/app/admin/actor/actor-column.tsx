@@ -51,7 +51,17 @@ export const actorColumns = (
     {
       accessorKey: "bio",
       header: "Tiểu sử",
-      cell: ({ getValue }) => getValue() || "-",
+      cell: ({ getValue }) => {
+        const bio = getValue() as string;
+        return (
+          <div
+            className="max-w-[200px] truncate"
+            title={bio} 
+          >
+            {bio || "-"}
+          </div>
+        );
+      },
     },
     {
       id: "actions",

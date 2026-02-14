@@ -1,6 +1,6 @@
 import { ActorInput } from "@/schemas/actor.schema";
 import { ApiResponse } from "@/types/body";
-import { Actor } from "@/types/object";
+import { Actor, Movie } from "@/types/object";
 import { ActorParams } from "@/types/param";
 import http from "@/utils/http";
 
@@ -12,7 +12,11 @@ export const ActorService = {
     },
 
     getDetail(id: string) {
-        return http.get<ApiResponse<Actor>>(`/${prefix}/detail/${id}`);
+        return http.get<ApiResponse<Actor>>(`/${prefix}/${id}`);
+    },
+
+    getActorMovie(id: string) {
+        return http.get<ApiResponse<Movie[]>>(`/${prefix}/movies/${id}`);
     },
 
     create(payload: ActorInput) {
