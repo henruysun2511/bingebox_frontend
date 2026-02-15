@@ -79,6 +79,7 @@ api.interceptors.response.use(
         queue = [];
         useAuthStore.getState().logout();
         // window.location.href = "/auth/login";
+        localStorage.removeItem("auth-storage");
         return Promise.reject(err);
       } finally {
         isRefreshing = false;

@@ -145,6 +145,18 @@ interface ShowtimeRoom {
 }
 export type { ShowtimeRoom };
 
+interface ShowtimeMovie {
+    _id: string,
+    name: string,
+    address: string,
+    formats:
+    {
+        format: string,
+        showtimes: Showtime[]
+    }[]
+}
+export type { ShowtimeMovie };
+
 interface TimeSlot extends BaseObject {
     _id?: string,
     name: string,

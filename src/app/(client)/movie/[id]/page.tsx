@@ -1,7 +1,11 @@
 "use client";
 
 import SectionTitle from "@/components/common/title/section-title";
+import { cn } from "@/lib/utils";
 import { useMovieDetail } from "@/queries/useMovieQuery";
+import { useShowtimesByMovie } from "@/queries/useShowtimeQuery";
+import { addDays, format, isSameDay } from "date-fns";
+import { vi } from "date-fns/locale";
 import { Calendar1, Clock1 } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -9,10 +13,22 @@ import { useState } from "react";
 
 export default function MovieDetailPage() {
     const { id } = useParams<{ id: string }>();
-    const { data, isLoading } = useMovieDetail(id);
-    console.log(data);
-    const movie = data?.data;
+    const { data: movieData, isLoading } = useMovieDetail(id);
+    const movie = movieData?.data;
+
+    //Lấy data ngày chiếu của phim
+    const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+    const { data: showtimeData, isLoading: isShowtimeLoading } = useShowtimesByMovie(id, {
+        date: format(selectedDate, "yyyy-MM-dd")
+    });
+    const showtimes = showtimeData?.data ?? [];
+    console.log(showtimeData);
+
+    //Select ngày
+    const dateTabs = Array.from({ length: 7 }, (_, i) => addDays(new Date(), i));
+
     const [showTrailer, setShowTrailer] = useState(false);
+
 
     if (isLoading) return <div className="text-white p-10">Loading...</div>;
     if (!movie) return <div className="text-white p-10">Movie not found</div>;
@@ -178,10 +194,87 @@ export default function MovieDetailPage() {
 
 
                 <div className="mb-20">
-                    <div className="container mx-auto px-6 text-white">
+                    <div className="container mx-auto px-6 text-white pb-20">
                         <SectionTitle title="Lịch chiếu" />
 
-                        
+                        {/* DATE TABS */}
+                        <div className="flex gap-4 overflow-x-auto pb-6 scrollbar-hide">
+                            {dateTabs.map((date, index) => {
+                                const isSelected = isSameDay(date, selectedDate);
+                                return (
+                                    <button
+                                        key={index}
+                                        onClick={() => setSelectedDate(date)}
+                                        className={cn(
+                                            "flex flex-col items-center min-w-[80px] py-3 rounded-xl transition-all",
+                                            isSelected
+                                                ? "bg-blue shadow-lg shadow-blue-500/20"
+                                                : "bg-white/5 border-white/10 hover:bg-white/10"
+                                        )}
+                                    >
+                                        <span className="text-[10px] uppercase opacity-60">
+                                            {index === 0 ? "Hôm nay" : format(date, "EEEE", { locale: vi })}
+                                        </span>
+                                        <span className="text-lg font-bold">
+                                            {format(date, "dd/MM")}
+                                        </span>
+                                    </button>
+                                );
+                            })}
+                        </div>
+
+                        {/* CINEMA LIST */}
+                        <div className="space-y-6">
+                            {isShowtimeLoading ? (
+                                <div className="text-center py-10 text-gray-400">Đang tải lịch chiếu...</div>
+                            ) : showtimes.length > 0 ? (
+                                showtimes.map((cinema: any) => (
+                                    <div key={cinema._id} className="border border-white/10 rounded-2xl overflow-hidden">
+                                        {/* Cinema Header */}
+                                        <div className="p-4 bg-white/5 border-b border-white/10">
+                                            <h3 className="font-bold text-lg text-blue">{cinema.name}</h3>
+                                            <p className="text-xs text-gray-400 mt-1 italic">{cinema.address}</p>
+                                        </div>
+
+                                        {/* Formats (Mỗi format một dòng) */}
+                                        <div className="p-4 space-y-6">
+                                            {cinema.formats.map((f: any, fIdx: number) => (
+                                                <div key={fIdx} className="space-y-3">
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="text-sm font-semibold uppercase tracking-wider text-gray-300">
+                                                            {f.format}
+                                                        </span>
+                                                        <div className="h-[1px] flex-1 bg-white/5" />
+                                                    </div>
+
+                                                    {/* Showtime Buttons */}
+                                                    <div className="flex flex-wrap gap-3">
+                                                        {f.showtimes.map((st: any) => (
+                                                            <Link
+                                                                key={st._id}
+                                                                href={`/booking/${st._id}`}
+                                                                className="group relative bg-neutral-800 hover:bg-blue-600 border border-white/10 hover:border-blue-500 rounded-lg px-4 py-2 transition-all"
+                                                            >
+                                                                <div className="text-sm font-bold group-hover:text-white">
+                                                                    {format(new Date(st.startTime), "HH:mm")}
+                                                                </div>
+                                                                <div className="text-[10px] text-gray-500 group-hover:text-blue-200">
+                                                                    ~{format(new Date(st.endTime), "HH:mm")}
+                                                                </div>
+                                                            </Link>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <div className="text-center py-20 bg-white/5 rounded-2xl border border-dashed border-white/10 text-gray-500">
+                                    Rất tiếc, không có suất chiếu nào cho ngày này.
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

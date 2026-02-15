@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { MovieStatusEnum } from "@/constants/enum";
 import { cn } from "@/lib/utils";
 import { useCinemaList } from "@/queries/useCinemaQuery";
 import { useMovieList } from "@/queries/useMovieQuery";
@@ -41,7 +42,9 @@ export function ShowtimeDialog({ open, onClose, showtime }: Props) {
         },
     });
 
-    const { data: movies } = useMovieList({ limit: 20 });
+    const { data: movies } = useMovieList({ 
+        status: MovieStatusEnum.NOW_SHOWING,
+        limit: 20 });
     const moviesData = movies?.data || [];
 
     //Theo dõi movieId người dùng đang chọn

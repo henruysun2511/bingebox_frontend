@@ -1,5 +1,6 @@
 import { ShowtimeInput } from "@/schemas/showtime.schema";
 import { ShowtimeService } from "@/services/showtime.service";
+import { ShowtimeParams } from "@/types/param";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const SHOWTIME_QUERY_KEY = ["showtimes"];
@@ -39,9 +40,9 @@ export const useDeleteShowtime = () => {
     });
 };
 
-export const useShowtimesByMovie = (movieId: string, params: any) => {
+export const useShowtimesByMovie = (movieId: string, params: ShowtimeParams) => {
     return useQuery({
-        queryKey: [...SHOWTIME_QUERY_KEY, "by-movie", movieId],
+        queryKey: [...SHOWTIME_QUERY_KEY, "by-movie", movieId, params],
         queryFn: async () => {
             const res = await ShowtimeService.getShowtimesByMovie(movieId, params);
             return res.data;
@@ -50,7 +51,7 @@ export const useShowtimesByMovie = (movieId: string, params: any) => {
     });
 };
 
-export const useShowtimesGroupByRoom = (cinemaId: string, params: any) => {
+export const useShowtimesGroupByRoom = (cinemaId: string, params: ShowtimeParams) => {
     return useQuery({
         queryKey: [...SHOWTIME_QUERY_KEY, "group-by-room", cinemaId, params],
         queryFn: async () => {
