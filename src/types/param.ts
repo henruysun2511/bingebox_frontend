@@ -44,7 +44,7 @@ export type { RoomParams };
 interface ShowtimeParams extends Pagination {
   movieId?: string;
   roomId?: string;
-  date?: string;
+  date?: Date;
 }
 export type { ShowtimeParams };
 
