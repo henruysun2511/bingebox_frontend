@@ -1,4 +1,4 @@
-import { AgePermissionTypeEnum, BaseStatusEnum, GenderEnum } from "../constants/enum";
+import { AgePermissionTypeEnum, BaseStatusEnum, GenderEnum, PermissionMethodTypeEnum } from "../constants/enum";
 
 
 interface BaseObject {
@@ -194,6 +194,14 @@ interface Setting extends BaseObject {
 export type { Setting };
 
 
+interface Permission{
+    name: string;
+    method: PermissionMethodTypeEnum,
+    path: string;
+    module: string;
+    description?: string;
+}
+export type { Permission };
 
 
 
