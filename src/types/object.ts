@@ -203,6 +203,14 @@ interface Permission{
 }
 export type { Permission };
 
+interface Role{
+    _id: string;
+    name: string;
+    description: string;
+    permissions: Permission[];
+}
+export type { Role };
+
 
 
 

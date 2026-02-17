@@ -96,7 +96,7 @@ export function PermissionDialog({ open, onClose, data }: Props) {
 
     return (
         <Dialog open={open} onOpenChange={onClose}>
-            <DialogContent className="sm:max-w-[500px] bg-neutral-950 border-neutral-800 text-white">
+            <DialogContent className="!max-w-[700px] bg-neutral-950 border-neutral-800 text-white">
                 <DialogHeader>
                     <DialogTitle className="text-xl font-bold text-blue-500">
                         {isEdit ? "Chỉnh sửa quyền hạn" : "Thêm quyền hạn mới"}
@@ -135,11 +135,11 @@ export function PermissionDialog({ open, onClose, data }: Props) {
                                                 </SelectTrigger>
                                             </FormControl>
                                             <SelectContent className="select-content-custom">
-                                                <SelectItem value="GET">GET</SelectItem>
-                                                <SelectItem value="POST">POST</SelectItem>
-                                                <SelectItem value="PUT">PUT</SelectItem>
-                                                <SelectItem value="PATCH">PATCH</SelectItem>
-                                                <SelectItem value="DELETE">DELETE</SelectItem>
+                                                {Object.values(PermissionMethodTypeEnum).map((method) => (
+                                                    <SelectItem className="select-item-custom" key={method} value={method}>
+                                                        {method}
+                                                    </SelectItem>
+                                                ))}
                                             </SelectContent>
                                         </Select>
                                         <FormMessage className="form-error-custom" />
@@ -186,10 +186,10 @@ export function PermissionDialog({ open, onClose, data }: Props) {
                                 <FormItem>
                                     <FormLabel className="form-label-custom">Mô tả chi tiết</FormLabel>
                                     <FormControl>
-                                        <Textarea 
-                                            {...field} 
-                                            className="form-input-custom min-h-[80px]" 
-                                            placeholder="Quyền này dùng để làm gì..." 
+                                        <Textarea
+                                            {...field}
+                                            className="form-input-custom min-h-[80px]"
+                                            placeholder="Quyền này dùng để làm gì..."
                                         />
                                     </FormControl>
                                     <FormMessage className="form-error-custom" />
@@ -204,8 +204,8 @@ export function PermissionDialog({ open, onClose, data }: Props) {
                                 className="w-full btn-custom h-12 font-bold uppercase tracking-wider"
                                 disabled={createMutation.isPending || updateMutation.isPending}
                             >
-                                {createMutation.isPending || updateMutation.isPending 
-                                    ? "Đang xử lý..." 
+                                {createMutation.isPending || updateMutation.isPending
+                                    ? "Đang xử lý..."
                                     : isEdit ? "Cập nhật" : "Tạo mới"}
                             </Button>
                         </div>

@@ -60,3 +60,7 @@ interface PermissionParams extends Pagination {
 }
 export type { PermissionParams };
 
+interface RoleParams extends Pagination {
+  name?: string;
+}
+
