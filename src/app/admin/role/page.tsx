@@ -38,7 +38,7 @@ export default function RolePage() {
   return (
     <div className="p-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-white">Quản lý Vai trò (Role)</h1>
+        <h1 className="text-2xl font-bold text-white">Vai trò (Role)</h1>
         <Button onClick={() => setOpen(true)} className="btn-custom">
           <Plus size={18} className="mr-2" /> Thêm Role
         </Button>

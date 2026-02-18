@@ -211,6 +211,13 @@ interface Role{
 }
 export type { Role };
 
+interface AgeType {
+  name: string;
+  minAge: number;
+  maxAge: number;
+}
+export type { AgeType };
+
 
 
 

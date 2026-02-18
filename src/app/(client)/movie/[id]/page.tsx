@@ -19,7 +19,7 @@ export default function MovieDetailPage() {
     //Lấy data ngày chiếu của phim
     const [selectedDate, setSelectedDate] = useState<Date>(new Date());
     const { data: showtimeData, isLoading: isShowtimeLoading } = useShowtimesByMovie(id, {
-        date: format(selectedDate, "yyyy-MM-dd")
+        date: selectedDate
     });
     const showtimes = showtimeData?.data ?? [];
     console.log(showtimeData);

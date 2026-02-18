@@ -20,11 +20,11 @@ export const roleColumns = (
             header: "Hành động",
             cell: ({ row }) => (
                 <div className="flex gap-2">
-                    <Button size="sm" variant="ghost" onClick={() => onEdit(row.original)}>
-                        <EditIcon size={16} className="text-blue-500" />
+                    <Button size="sm" className="btn-edit" onClick={() => onEdit(row.original)}>
+                        <EditIcon size={16} />
                     </Button>
-                    <Button size="sm" variant="ghost" onClick={() => onDelete(row.original._id)}>
-                        <TrashIcon size={16} className="text-red-500" />
+                    <Button size="sm" className="btn-delete" onClick={() => onDelete(row.original._id)}>
+                        <TrashIcon size={16} />
                     </Button>
                 </div>
             ),

@@ -48,7 +48,7 @@ interface ShowtimeParams extends Pagination {
 }
 export type { ShowtimeParams };
 
-interface RoleParams extends Pagination {
+interface RoleParams {
   name?: string;
 }
 export type { RoleParams };
@@ -60,7 +60,11 @@ interface PermissionParams extends Pagination {
 }
 export type { PermissionParams };
 
-interface RoleParams extends Pagination {
+
+interface AgeTypeParams {
   name?: string;
+  age?: string;
 }
+export type { AgeTypeParams };
+
 

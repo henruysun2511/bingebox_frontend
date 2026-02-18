@@ -3,6 +3,7 @@ import { ApiResponse } from "@/types/body";
 import { Showtime, ShowtimeMovie, ShowtimeRoom } from "@/types/object";
 import { ShowtimeParams } from "@/types/param";
 import http from "@/utils/http";
+import { format } from "date-fns";
 
 const prefix = "showtimes";
 
@@ -20,7 +21,19 @@ export const ShowtimeService = {
         return http.delete<ApiResponse<null>>(`/${prefix}/${id}`);
     },
     getShowtimesByMovie(movieId: string, params: ShowtimeParams) {
-        return http.get<ApiResponse<ShowtimeMovie[]>>(`/${prefix}/movies/${movieId}`, { params });
+        const formattedDate = params.date
+            ? format(params.date, "yyyy-MM-dd")
+            : undefined;
+
+        return http.get<ApiResponse<ShowtimeMovie[]>>(
+            `/${prefix}/movies/${movieId}`,
+            {
+                params: {
+                    ...params,
+                    date: formattedDate,
+                },
+            }
+        );
     },
     getShowtimesGroupByRoom(cinemaId: string, params: ShowtimeParams) {
         return http.get<ApiResponse<ShowtimeRoom[]>>(`/${prefix}/cinemas/${cinemaId}/rooms`, { params });
