@@ -1,4 +1,5 @@
 
+import { MovieStatusEnum } from "@/constants/enum";
 import { SUBTITLE_TYPE_OPTIONS } from "@/constants/filter";
 import { Movie } from "@/types/object";
 import { Play, Ticket } from "lucide-react";
@@ -7,9 +8,10 @@ import { useState } from "react";
 
 interface MovieCardProps {
     movie: Movie;
+    status?: string;
 }
 
-export default function MovieCard({ movie }: MovieCardProps) {
+export default function MovieCard({ movie, status }: MovieCardProps) {
     const {
         _id,
         name,
@@ -51,14 +53,17 @@ export default function MovieCard({ movie }: MovieCardProps) {
                     </div>
 
                     {/* Buy Ticket */}
-                    <div className="absolute bottom-5 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition duration-300">
-                        <Link href={`/booking/${_id}`}>
-                            <button className="flex items-center whitespace-nowrap gap-2 bg-blue hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm font-medium shadow-lg transition">
-                                <Ticket className="w-4 h-4" />
-                                MUA VÉ NGAY
-                            </button>
-                        </Link>
-                    </div>
+                    {status === MovieStatusEnum.NOW_SHOWING && (
+                        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition duration-300">
+                            <Link href={`/booking/${_id}`}>
+                                <button className="flex items-center whitespace-nowrap gap-2 bg-blue hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm font-medium shadow-lg transition">
+                                    <Ticket className="w-4 h-4" />
+                                    MUA VÉ NGAY
+                                </button>
+                            </Link>
+                        </div>
+                    )
+                    }
                 </div>
 
                 {/* Badges */}
@@ -90,7 +95,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
                         ? categories.map((c) => c.name).join(", ")
                         : "N/A"}
                 </p>
-            </div>
+            </div >
 
             {showTrailer && (
                 <>
@@ -107,7 +112,8 @@ export default function MovieCard({ movie }: MovieCardProps) {
                         />
                     </div>
                 </>
-            )}
+            )
+            }
         </>
 
     );

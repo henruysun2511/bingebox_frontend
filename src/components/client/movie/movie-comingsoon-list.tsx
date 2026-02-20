@@ -1,3 +1,4 @@
+import MovieCardSkeleton from "@/components/common/skeleton/movie-card-seketon";
 import { MovieStatusEnum } from "@/constants/enum";
 import { useMovieList } from "@/queries/useMovieQuery";
 import MovieCard from "./movie-card";
@@ -9,8 +10,15 @@ export default function MovieComingSoonList() {
     });
 
     if (isLoading) {
-        return <div className="text-white text-center py-10">Đang tải phim...</div>;
+        return (
+            <div className="flex flex-wrap gap-6 justify-start">
+                {Array.from({ length: 8 }).map((_, index) => (
+                    <MovieCardSkeleton key={index} />
+                ))}
+            </div>
+        );
     }
+
 
     const movies = data?.data || [];
 
