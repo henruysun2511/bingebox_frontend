@@ -19,7 +19,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-export default function LoginForm() {
+export default function LoginPage() {
     const router = useRouter();
     const { mutate: login, isPending } = useLogin();
 
@@ -107,7 +107,7 @@ export default function LoginForm() {
 
                             {/* Forgot Password */}
                             <div className="flex justify-end">
-                                <Link href="/forgot-password" className="text-xs text-white/60 hover:text-[#1c3cd6] transition-colors underline-offset-4 hover:underline">
+                                <Link href="/auth/forgotPassword" className="text-xs text-white/60 hover:text-[#1c3cd6] transition-colors underline-offset-4 hover:underline">
                                     Quên mật khẩu?
                                 </Link>
                             </div>
@@ -153,7 +153,7 @@ export default function LoginForm() {
                             {/* Register */}
                             <p className="text-center text-gray-400 text-sm">
                                 Bạn chưa có tài khoản?
-                                <Link href="/register" className="text-red-500 hover:text-red-400 hover:underline font-bold ml-1 transition-colors">
+                                <Link href="/auth/register" className="text-red-500 hover:text-red-400 hover:underline font-bold ml-1 transition-colors">
                                     Đăng ký
                                 </Link>
                             </p>

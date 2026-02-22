@@ -67,4 +67,12 @@ interface AgeTypeParams {
 }
 export type { AgeTypeParams };
 
+interface UserParams extends Pagination {
+  username?: string;
+  isBlocked?: string;
+  role?: string;
+  sort?: string;
+}
+export type { UserParams };
+
 

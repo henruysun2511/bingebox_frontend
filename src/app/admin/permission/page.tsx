@@ -74,7 +74,7 @@ export default function PermissionPage() {
         <div className="p-6">
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-                    Quản lý Quyền hạn
+                    Quyền hạn
                 </h1>
                 <Button className="btn-custom" onClick={() => { setSelected(undefined); setOpen(true); }}>
                     <Plus size={16} className="mr-2" /> Thêm Quyền

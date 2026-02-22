@@ -14,6 +14,12 @@ export function useRefreshTokenQuery() {
   });
 }
 
+export function useRegister() {
+    return useMutation({
+        mutationFn: authService.register,
+    });
+}
+
 export function useLogin() {
     const setAuth = useAuthStore((s) => s.setAuth);
 
@@ -37,3 +43,22 @@ export function useLogout() {
         },
     });
 }
+
+export const useForgotPassword = () => {
+  return useMutation({
+    mutationFn: authService.forgotPassword,
+  });
+};
+
+export const useResetPassword = () => {
+  return useMutation({
+    mutationFn: authService.resetPassword,
+  });
+};
+
+
+export const useChangePassword = () => {
+  return useMutation({
+    mutationFn: authService.changePassword,
+  });
+};

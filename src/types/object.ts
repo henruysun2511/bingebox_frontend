@@ -1,4 +1,4 @@
-import { AgePermissionTypeEnum, BaseStatusEnum, GenderEnum, PermissionMethodTypeEnum } from "../constants/enum";
+import { AgePermissionTypeEnum, BaseStatusEnum, GenderEnum, LoginTypeEnum, PermissionMethodTypeEnum } from "../constants/enum";
 
 
 interface BaseObject {
@@ -9,11 +9,32 @@ interface BaseObject {
 }
 
 interface User {
+    _id: string;
     username: string,
     email: string,
-    role: string,
+    role: Role,
+    fullName?: string;
+    avatar?: string;
+    birth?: Date;
+    gender?: GenderEnum;
+    googleId?: string;
+    provider?: LoginTypeEnum;
+    membership?: Membership;
+    currentPoints: number;
+    totalSpending: number;
+    isBlocked: boolean;
 }
 export type { User };
+
+interface Membership extends BaseObject {
+    _id?: string;
+    name: string; // "Silver", "Gold", "Diamond"
+    minSpending: number; // Số tiền tối thiểu đã tiêu để đạt hạng này
+    pointAccumulationRate: number; // Tỷ lệ tích điểm (VD: 0.05 tức là tích 5% giá trị đơn)
+    discountRate: number; // Giảm giá trực tiếp cho thành viên (VD: 0.02 tức giảm 2%)
+}
+export type { Membership };
+
 
 interface Actor extends BaseObject {
     _id: string;
