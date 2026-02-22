@@ -1,4 +1,4 @@
-import { AgePermissionTypeEnum, BaseStatusEnum, GenderEnum, LoginTypeEnum, PermissionMethodTypeEnum } from "../constants/enum";
+import { AgePermissionTypeEnum, BaseStatusEnum, DayOfWeekEnum, GenderEnum, LoginTypeEnum, PermissionMethodTypeEnum } from "../constants/enum";
 
 
 interface BaseObject {
@@ -215,7 +215,7 @@ interface Setting extends BaseObject {
 export type { Setting };
 
 
-interface Permission{
+interface Permission extends BaseObject {
     name: string;
     method: PermissionMethodTypeEnum,
     path: string;
@@ -224,7 +224,7 @@ interface Permission{
 }
 export type { Permission };
 
-interface Role{
+interface Role extends BaseObject {
     _id: string;
     name: string;
     description: string;
@@ -232,12 +232,25 @@ interface Role{
 }
 export type { Role };
 
-interface AgeType {
-  name: string;
-  minAge: number;
-  maxAge: number;
+interface AgeType extends BaseObject {
+    _id: string;
+    name: string;
+    minAge: number;
+    maxAge: number;
 }
 export type { AgeType };
+
+interface TicketPrice extends BaseObject {
+    _id: string;
+    timeSlot: TimeSlot;
+    ageType: AgeType;
+    formatRoom: FormatRoom;
+    seatType: SeatType;
+    dayOfWeek: DayOfWeekEnum;
+    finalPrice: number;
+}
+export type { TicketPrice };
+
 
 
 

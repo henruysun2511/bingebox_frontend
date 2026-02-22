@@ -37,3 +37,4 @@ export const useRedeemPoints = () => {
         onSuccess: () => qc.invalidateQueries({ queryKey: USER_QUERY_KEY }),
     });
 };
+

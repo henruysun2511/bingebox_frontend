@@ -75,4 +75,15 @@ interface UserParams extends Pagination {
 }
 export type { UserParams };
 
+interface TicketPriceParams  {
+    timeSlot?: string;
+    ageType?: string;
+    formatRoom?: string;
+    seatType?: string;
+    dayOfWeek?: string;
+    minPrice?: number;
+    maxPrice?: number;
+}
+export type { TicketPriceParams };
+
 
