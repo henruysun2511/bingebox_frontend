@@ -27,7 +27,7 @@ interface User {
 export type { User };
 
 interface Membership extends BaseObject {
-    _id?: string;
+    _id: string;
     name: string; // "Silver", "Gold", "Diamond"
     minSpending: number; // Số tiền tối thiểu đã tiêu để đạt hạng này
     pointAccumulationRate: number; // Tỷ lệ tích điểm (VD: 0.05 tức là tích 5% giá trị đơn)
@@ -250,6 +250,7 @@ interface TicketPrice extends BaseObject {
     finalPrice: number;
 }
 export type { TicketPrice };
+
 
 
 

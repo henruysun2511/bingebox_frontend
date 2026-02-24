@@ -18,7 +18,8 @@ export default function TicketPricePage() {
     const [selected, setSelected] = useState<any>();
     const [idToDelete, setIdToDelete] = useState<string | null>(null);
 
-    const { data, isPending } = useTicketPriceList(params);
+    const { data, isPending } = useTicketPriceList({...params, page, limit: 20});
+    console.log(data);
     const deleteMu = useDeleteTicketPrice();
 
     return (
