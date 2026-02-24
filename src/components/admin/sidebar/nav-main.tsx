@@ -33,18 +33,31 @@ export function NavMain({ items }: { items: any[] }) {
           >
             <SidebarMenuItem>
               <CollapsibleTrigger asChild>
-                <SidebarMenuButton
-                  tooltip={item.title}
-                  className="hover:bg-white/5 py-6 cursor-pointer"
-                >
-                  {item.icon && <item.icon className="size-5 text-blue mr-2 group-hover/collapsible:text-white" />}
-                  <span className="text-[15px] font-semibold text-gray-200 group-hover/collapsible:text-white">
-                    {item.title}
-                  </span>
-                  {item.items?.length > 0 && (
+                {item.items?.length > 0 ? (
+                  <SidebarMenuButton
+                    tooltip={item.title}
+                    className="hover:bg-white/5 py-6 cursor-pointer"
+                  >
+                    {item.icon && <item.icon className="size-5 text-blue mr-2 group-hover/collapsible:text-white" />}
+                    <span className="text-[15px] font-semibold text-gray-200 group-hover/collapsible:text-white">
+                      {item.title}
+                    </span>
                     <ChevronDown className="ml-auto size-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-180 text-gray-400" />
-                  )}
-                </SidebarMenuButton>
+                  </SidebarMenuButton>
+                ) : (
+                  <SidebarMenuButton
+                    asChild
+                    tooltip={item.title}
+                    className="hover:bg-white/5 py-6 cursor-pointer"
+                  >
+                    <Link href={item.url} className="flex items-center w-full">
+                      {item.icon && <item.icon className="size-5 text-blue mr-2" />}
+                      <span className="text-[15px] font-semibold text-gray-200">
+                        {item.title}
+                      </span>
+                    </Link>
+                  </SidebarMenuButton>
+                )}
               </CollapsibleTrigger>
 
               {item.items?.length > 0 && (

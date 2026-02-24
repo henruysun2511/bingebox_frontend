@@ -49,7 +49,7 @@ const data = {
     {
       title: "Quản lý người dùng",
       url: "#",
-      icon: IconUsers, 
+      icon: IconUsers,
       items: [
         { title: "Người dùng", url: "/admin/user" },
         { title: "Vai trò", url: "/admin/role" },
@@ -61,7 +61,7 @@ const data = {
     {
       title: "Quản lý phim",
       url: "#",
-      icon: IconMovie, 
+      icon: IconMovie,
       items: [
         { title: "Phim", url: "/admin/movie" },
         { title: "Thể loại", url: "/admin/category" },
@@ -71,7 +71,7 @@ const data = {
     {
       title: "Quản lý rạp",
       url: "#",
-      icon: IconBuildingCommunity, 
+      icon: IconBuildingCommunity,
       items: [
         { title: "Rạp", url: "/admin/cinema" },
         { title: "Phòng chiếu ", url: "/admin/room" },
@@ -93,7 +93,7 @@ const data = {
     {
       title: "Quản lý vé",
       url: "#",
-      icon: IconTicket, 
+      icon: IconTicket,
       items: [
         { title: "Hóa đơn vé", url: "/admin/ticket" },
         { title: "Hóa đơn thanh toán", url: "/admin/booking" },
@@ -103,17 +103,17 @@ const data = {
     {
       title: "Quản lý voucher",
       url: "/admin/voucher",
-      icon: IconTicketOff, 
+      icon: IconTicketOff,
     },
     {
       title: "Quản lý bài viết",
       url: "/admin/blog",
-      icon: IconFileDescription, 
+      icon: IconFileDescription,
     },
     {
       title: "Quản lý đồ ăn",
       url: "/admin/food",
-      icon: IconCarrot, 
+      icon: IconCarrot,
     },
   ],
   navClouds: [

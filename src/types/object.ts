@@ -251,6 +251,14 @@ interface TicketPrice extends BaseObject {
 }
 export type { TicketPrice };
 
+interface Food extends BaseObject {
+    _id: string;
+    name: string;
+    image: string;
+    price: number;
+}
+export type { Food };
+
 
 
 

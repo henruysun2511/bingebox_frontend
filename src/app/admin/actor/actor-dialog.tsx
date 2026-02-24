@@ -51,7 +51,6 @@ export function ActorDialog({ open, onClose, actor }: Props) {
     const createActor = useCreateActor();
     const updateActor = useUpdateActor();
 
-    // Reset form khi đóng/mở
     useEffect(() => {
         if (open) {
             if (actor) {

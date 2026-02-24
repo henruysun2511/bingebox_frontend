@@ -86,4 +86,10 @@ interface TicketPriceParams extends Pagination {
 }
 export type { TicketPriceParams };
 
+interface FoodParams extends Pagination {
+    name?: string;
+    minPrice?: string;
+    maxPrice?: string;
+}
+export type { FoodParams };
 
