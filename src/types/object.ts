@@ -259,6 +259,23 @@ interface Food extends BaseObject {
 }
 export type { Food };
 
+interface Voucher {
+    _id: string;
+    name: string;             // Tên voucher
+    code: string;             // Mã code (đã uppercase)
+    description?: string;     // Mô tả thêm
+    startTime: string;        // Ngày bắt đầu (ISO string)
+    endTime: string;          // Ngày kết thúc (ISO string)
+    minOrderValue: number;    // Giá trị đơn hàng tối thiểu
+    maxDiscountAmount: number; // Số tiền giảm tối đa
+    maxUsage: number;         // Tổng số lượt sử dụng tối đa
+    usedCount: number;        // Số lượt đã sử dụng (thường backend sẽ trả về)
+    status: BaseStatusEnum;
+    isDeleted: boolean;
+    createdAt: string;
+    updatedAt: string;
+}
+export type { Voucher };
 
 
 

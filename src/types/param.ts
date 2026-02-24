@@ -93,3 +93,11 @@ interface FoodParams extends Pagination {
 }
 export type { FoodParams };
 
+interface VoucherParams extends Pagination{
+    name?: string;
+    code?: string;
+    status?: string;
+    sort?: string; 
+}
+export type { VoucherParams };
+
