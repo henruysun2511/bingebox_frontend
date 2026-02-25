@@ -6,18 +6,21 @@ import { ReactNode } from "react";
 
 
 export default function ClientLayout({ children }: { children: ReactNode }) {
-    const { data: settings, isLoading } = useGetSettings();
+  const { data: settings, isLoading } = useGetSettings();
 
+  if (isLoading) return null;
 
-    if (isLoading) return null; 
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Header logo={settings?.logo || ""} />
 
-    return (
-        <>
-            <Header logo={settings?.logo || ""} /> 
-            <div className="bg-gradient mt-5 overflow-x-hidden">
-                {children}
-            </div>
-            {settings && <Footer settings={settings} />}
-        </>
-    );
+      {/* Content */}
+      <main className="flex-1 bg-gradient mt-5 overflow-x-hidden">
+        {children}
+      </main>
+
+      {/* Footer luôn nằm dưới */}
+      {settings && <Footer settings={settings} />}
+    </div>
+  );
 }

@@ -25,9 +25,9 @@ import { toast } from "sonner";
 
 const menuItems = [
   { title: "Lịch chiếu", href: "/showtime" },
-  { title: "Khuyến mãi", href: "/promotion" },
-  { title: "Tin tức", href: "/new" },
+  { title: "Tin tức", href: "/blog" },
   { title: "Giá vé", href: "/price" },
+  { title: "Diễn viên", href: "/actor" },
   { title: "Bàn luận điện ảnh", href: "/comment" },
   { title: "Về chúng tôi", href: "/aboutUs" },
 ];

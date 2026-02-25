@@ -1,5 +1,6 @@
 "use client";
 
+import BlogSection from "@/components/client/blog/blog-section";
 import Carousel from "@/components/client/carousel/carousel";
 import MovieComingSoonList from "@/components/client/movie/movie-comingsoon-list";
 import MovieNowShowingList from "@/components/client/movie/movie-nowshowing-list";
@@ -10,6 +11,7 @@ import { BaseStatusEnum } from "@/constants/enum";
 import { useGetSettings } from "@/queries/useSettingQuery";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import ExpertReviews from "./expert-review";
 
 export default function Home() {
   const { data: setting, isLoading } = useGetSettings();
@@ -88,7 +90,14 @@ export default function Home() {
             />
           </div>
         </div>
+
+       
+
+        <BlogSection />
+
+        <ExpertReviews />
       </div>
+
     </>
   );
 }

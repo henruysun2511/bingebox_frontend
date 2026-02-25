@@ -2,10 +2,10 @@ import { AgePermissionTypeEnum, BaseStatusEnum, DayOfWeekEnum, GenderEnum, Login
 
 
 interface BaseObject {
-    createdAt?: string;
-    updatedAt?: string;
-    deletedAt?: string;
-    isDeleted?: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+    deletedAt: Date;
+    isDeleted: boolean;
 }
 
 interface User {
@@ -276,6 +276,22 @@ interface Voucher {
     updatedAt: string;
 }
 export type { Voucher };
+
+interface Blog extends BaseObject {
+    _id: string
+    title: string
+    slug: string
+    content: string
+    thumbnail: string
+    author: {
+        _id: string
+        username: string
+        avatar: string
+    }
+    views: number
+    isPublished: boolean
+}
+export type { Blog };
 
 
 

@@ -9,6 +9,7 @@ export type { Pagination };
 
 interface ActorParams extends Pagination {
   name?: string;
+  alphabet?: string;
   sort?: string;
 }
 export type { ActorParams };
@@ -100,4 +101,10 @@ interface VoucherParams extends Pagination{
     sort?: string; 
 }
 export type { VoucherParams };
+
+interface BlogParams extends Pagination{
+    title?: string
+    isPublished?: string
+}
+export type { BlogParams };
 
