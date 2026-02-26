@@ -1,4 +1,4 @@
-import { AgePermissionTypeEnum, BaseStatusEnum, DayOfWeekEnum, GenderEnum, LoginTypeEnum, PermissionMethodTypeEnum } from "../constants/enum";
+import { AgePermissionTypeEnum, BaseStatusEnum, BookingStatusEnum, DayOfWeekEnum, GenderEnum, LoginTypeEnum, MovieStatusEnum, PermissionMethodTypeEnum, TicketStatusEnum } from "../constants/enum";
 
 
 interface BaseObject {
@@ -23,6 +23,8 @@ interface User {
     currentPoints: number;
     totalSpending: number;
     isBlocked: boolean;
+    banner?: string;
+    tags?: string[];
 }
 export type { User };
 
@@ -73,7 +75,7 @@ interface Movie extends BaseObject {
     categories: Category[];
     nationality?: string;
     agePermission: AgePermissionTypeEnum;
-    status: AgePermissionTypeEnum;
+    status: MovieStatusEnum;
     format?: string[];
     likeCount?: number;
 }
@@ -103,6 +105,7 @@ interface SeatType extends BaseObject {
     _id: string;
     name: string;
     color: string;
+    price: number;
 };
 export type { SeatType };
 
@@ -120,8 +123,8 @@ interface Seat {
     seatType?: SeatType;
     isCoupleSeat?: boolean;
     partnerSeat?: string;
-};
-
+    status: string;
+}
 export type { Seat };
 
 interface Room {
@@ -177,6 +180,39 @@ interface ShowtimeMovie {
     }[]
 }
 export type { ShowtimeMovie };
+
+interface ShowtimeCinema {
+    id: string;
+    poster: string;
+    duration: number;
+    agePermission: string;
+    format: string[];
+    releaseDate?: string;
+    description?: string;
+}
+export type { ShowtimeCinema };
+
+interface ShowtimeDetail extends BaseObject {
+    _id: string;
+    movie: Movie;
+    room: {
+        _id: string;
+        name: string;
+        cinema: {
+            _id: string;
+            name: string;
+        }
+        format: {
+            _id: string;
+            name: string;
+        }
+    };
+    timeslot: TimeSlot;
+    startTime: Date;
+    endTime: Date;
+    status: BaseStatusEnum;
+}
+export type { ShowtimeDetail };
 
 interface TimeSlot extends BaseObject {
     _id?: string,
@@ -292,6 +328,54 @@ interface Blog extends BaseObject {
     isPublished: boolean
 }
 export type { Blog };
+
+interface Booking extends BaseObject {
+    _id: string;
+    userId: string;
+    showtime: string;
+    foods: {
+        foodId: string;
+        quantity: number;
+        priceAtBooking: number;
+    }[];
+    voucher?: string;
+    pointsUsed?: number; // Số điểm khách quyết định dùng cho đơn này
+    pointsEarned?: number; // Số điểm khách sẽ nhận được sau khi thanh toán thành công
+    totalAmount: number;
+    discountAmount: number;
+    finalAmount: number;
+    bookingStatus: BookingStatusEnum; // PENDING, SUCCESS, FAILED, EXPIRED
+    expiresAt: Date; // Thời hạn thanh toán để giữ ghế
+}
+
+export type { Booking };
+
+interface Ticket extends BaseObject {
+    _id: string;
+    booking: string;
+    showtime: string;
+    seat: string;
+    ticketPrice: string;
+    price: number;
+    qrCode: string;
+    status: TicketStatusEnum;
+    expiresAt: Date;
+}
+
+export type { Ticket };
+
+interface BookingDetail {
+    showtime: any; 
+    step: number;
+    selectedSeats: Seat[];
+    selectedFoods: Food[];
+    selectedVoucher: Voucher | null;
+    booking: any;
+    tickets: Ticket[];
+    pointsUsed: number;
+}
+
+export type { BookingDetail };
 
 
 

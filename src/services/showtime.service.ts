@@ -1,6 +1,6 @@
 import { ShowtimeInput } from "@/schemas/showtime.schema";
 import { ApiResponse } from "@/types/body";
-import { Showtime, ShowtimeMovie, ShowtimeRoom } from "@/types/object";
+import { Showtime, ShowtimeCinema, ShowtimeDetail, ShowtimeMovie, ShowtimeRoom } from "@/types/object";
 import { ShowtimeParams } from "@/types/param";
 import http from "@/utils/http";
 import { format } from "date-fns";
@@ -10,6 +10,9 @@ const prefix = "showtimes";
 export const ShowtimeService = {
     getList(params: ShowtimeParams) {
         return http.get<ApiResponse<Showtime[]>>(`/${prefix}`, { params });
+    },
+    getDetail(id: string) {
+        return http.get<ApiResponse<ShowtimeDetail>>(`/${prefix}/${id}`);
     },
     create(payload: ShowtimeInput) {
         return http.post<ApiResponse<any>>(`/${prefix}`, payload);
@@ -37,5 +40,22 @@ export const ShowtimeService = {
     },
     getShowtimesGroupByRoom(cinemaId: string, params: ShowtimeParams) {
         return http.get<ApiResponse<ShowtimeRoom[]>>(`/${prefix}/cinemas/${cinemaId}/rooms`, { params });
-    }
+    },
+
+    getShowtimesByCinema(cinemaId: string, date?: Date | string) {
+        const formattedDate = date
+            ? typeof date === "string"
+                ? date
+                : format(date, "yyyy-MM-dd")
+            : undefined;
+
+        return http.get<ApiResponse<ShowtimeCinema[]>>(
+            `/${prefix}/cinemas/${cinemaId}`,
+            {
+                params: {
+                    date: formattedDate,
+                },
+            }
+        );
+    },
 };

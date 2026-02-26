@@ -1,3 +1,4 @@
+import { UserInput } from "@/schemas/user.schema";
 import { ApiResponse } from "@/types/body";
 import { User } from "@/types/object";
 import { UserParams } from "@/types/param";
@@ -12,7 +13,7 @@ export const UserService = {
     getMe() {
         return http.get<ApiResponse<User>>(`/${prefix}/me`);
     },
-    updateMe(payload: any) {
+    updateMe(payload: UserInput) {
         return http.patch<ApiResponse<User>>(`/${prefix}/me`, payload);
     },
     assignRole(id: string, roleId: string) {

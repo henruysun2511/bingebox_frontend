@@ -48,3 +48,13 @@ export const useDeleteTicketPrice = () => {
         onError: (error) => handleError(error)
     });
 };
+
+export const usePreviewTicketPrice = () => {
+  return useMutation({
+    mutationFn: (payload: { seatId: string; showtimeId: string }) =>
+      TicketPriceService.previewTicketPrice(payload),
+    onSuccess: (res) => {
+      return res.data;
+    },
+  });
+};

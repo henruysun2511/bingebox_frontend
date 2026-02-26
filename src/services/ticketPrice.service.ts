@@ -21,5 +21,8 @@ export const TicketPriceService = {
     },
     delete(id: string) {
         return http.delete<ApiResponse<null>>(`/${prefix}/${id}`);
-    }
+    },
+    previewTicketPrice: (payload: { seatId: string; showtimeId: string }) => {
+        return http.post(`/${prefix}/preview`, payload);
+    },
 };

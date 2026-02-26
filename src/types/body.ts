@@ -35,3 +35,15 @@ interface LoginBody {
 };
 export type { LoginBody };
 
+interface BookingBody {
+    showtimeId: string;
+    seatIds: string[];
+    foods: {
+        foodId: string;
+        quantity: number;
+    }[];
+    voucherCode?: string;
+    pointsUsed?: number;
+}
+export type { BookingBody };
+

@@ -15,6 +15,19 @@ export const useShowtimeList = (params: any) => {
     });
 };
 
+export const useShowtimeDetail = (id?: string) => {
+    return useQuery({
+        queryKey: [...SHOWTIME_QUERY_KEY, "detail", id],
+        queryFn: async () => {
+            if (!id) return null;
+            const res = await ShowtimeService.getDetail(id);
+            return res.data;
+        },
+        enabled: !!id, 
+        staleTime: 5 * 60 * 1000,
+    });
+};
+
 export const useCreateShowtime = () => {
     const qc = useQueryClient();
     return useMutation({
@@ -59,5 +72,16 @@ export const useShowtimesGroupByRoom = (cinemaId: string, params: ShowtimeParams
             return res.data;
         },
         enabled: !!cinemaId, // Chỉ chạy khi có cinemaId
+    });
+};
+
+export const useShowtimesByCinema = (cinemaId: string, date?: Date | string) => {
+    return useQuery({
+        queryKey: [...SHOWTIME_QUERY_KEY, "by-cinema", cinemaId, date],
+        queryFn: async () => {
+            const res = await ShowtimeService.getShowtimesByCinema(cinemaId, date);
+            return res.data;
+        },
+        enabled: !!cinemaId, // Chỉ fetch khi có cinemaId
     });
 };
