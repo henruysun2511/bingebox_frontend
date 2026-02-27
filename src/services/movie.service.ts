@@ -33,4 +33,13 @@ export const MovieService = {
     delete(id: string) {
         return http.delete<ApiResponse<null>>(`/${prefix}/${id}`);
     },
+    getFavouriteMovies() {
+        return http.get<ApiResponse<Movie[]>>(`/${prefix}/favourite`);
+    },
+    getWatchedMovies() {
+        return http.get<ApiResponse<Movie[]>>(`/${prefix}/watched`);
+    },
+    toggleLikeMovie(id: string) {
+        return http.post<ApiResponse<{ isLiked: boolean }>>(`/${prefix}/likes/${id}`, {});
+    }
 };

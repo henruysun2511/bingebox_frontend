@@ -9,13 +9,18 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import UserUpdateDialog from "./user-dialog";
+import UserMovieFavouriteList from "./user-favourite-movie";
+import UserPasswordDialog from "./user-password-dialog";
+import UserTicketTable from "./user-ticket-table";
+import UserMovieWatchedList from "./user-watched-movie";
 
 
 export default function ProfilePage() {
     const { data: userRes } = useGetMe();
     const user = userRes?.data;
-    const [activeTab, setActiveTab] = useState("my-info");
+    const [activeTab, setActiveTab] = useState("my-ticket");
     const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
+    const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false);
 
     if (!user)
         return (
@@ -104,18 +109,6 @@ export default function ProfilePage() {
                             <InfoItem label="Mã KH" value={user._id} />
                         </div>
 
-                        <div className="text-center">
-                            <h3 className="mb-4 text-yellow-400 font-semibold">
-                                Mã Barcode
-                            </h3>
-                            <div className="bg-white p-2 inline-block rounded-lg">
-                                <img
-                                    src="/assets/images/barcode.png"
-                                    alt="barcode"
-                                    className="h-16"
-                                />
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -166,15 +159,15 @@ export default function ProfilePage() {
                         {[
                             { id: "my-info", label: "Thông tin chi tiết" },
                             { id: "my-ticket", label: "Vé của tôi" },
-                            { id: "my-bill", label: "Hóa đơn" },
                             { id: "my-movie", label: "Phim của tôi" },
+                            { id: "my-password", label: "Đổi mật khẩu" },
                         ].map((tab) => (
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`px-6 py-3 font-semibold transition-all whitespace-nowrap ${activeTab === tab.id
-                                        ? "bg-yellow-500 text-black rounded-t-xl"
-                                        : "text-white/70 hover:text-white hover:bg-white/5"
+                                    ? "bg-yellow-500 text-black rounded-t-xl"
+                                    : "text-white/70 hover:text-white hover:bg-white/5"
                                     }`}
                             >
                                 {tab.label}
@@ -183,14 +176,15 @@ export default function ProfilePage() {
                     </div>
 
                     {/* ===== TAB CONTENT ===== */}
-                    <div className="bg-gradient-to-br 
+
+
+                    {activeTab === "my-info" && (
+                        <div className="bg-gradient-to-br 
                           from-[#1f1f4a] 
                           to-[#3535a3]
                           p-10 rounded-3xl 
                           border border-white/10
                           shadow-2xl">
-
-                        {activeTab === "my-info" && (
                             <div className="space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <InfoItem label="Họ và tên" value={user.fullName || "Chưa cập nhật"} />
@@ -224,8 +218,46 @@ export default function ProfilePage() {
                                     </button>
                                 </div>
                             </div>
-                        )}
-                    </div>
+                        </div>
+                    )}
+                    {activeTab === "my-ticket" && (
+                        <div className="space-y-6">
+
+                            <UserTicketTable />
+                        </div>
+                    )}
+                    {activeTab === "my-movie" && (
+                        <div className="space-y-6">
+                            <div className="text-2xl font-bold text-yellow-400 mb-4">
+                                Phim đã xem
+                            </div>
+                            <UserMovieWatchedList />
+                            <div className="text-2xl font-bold text-yellow-400 mb-4 mt-10">
+                                Phim yêu thích
+                            </div>
+                            <UserMovieFavouriteList />
+                        </div>
+                    )}
+                    {activeTab === "my-password" && (
+                        <div className="bg-gradient-to-br 
+                          from-[#1f1f4a] 
+                          to-[#3535a3]
+                          p-10 rounded-3xl 
+                          border border-white/10
+                          shadow-2xl">
+                            <div className="space-y-6">
+                                <div className="pt-8 border-t border-white/10 flex justify-center">
+                                    <button
+                                        onClick={() => setIsPasswordDialogOpen(true)}
+                                        className="bg-yellow-500 text-black px-10 py-3 rounded-xl font-bold hover:bg-yellow-400 transition"
+                                    >
+                                        Đổi mật khẩu
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
                 </div>
             </div>
 
@@ -234,6 +266,11 @@ export default function ProfilePage() {
                 open={isUpdateDialogOpen}
                 onClose={() => setIsUpdateDialogOpen(false)}
                 user={user}
+            />
+
+            <UserPasswordDialog
+                open={isPasswordDialogOpen}
+                onClose={() => setIsPasswordDialogOpen(false)}
             />
         </div>
     );

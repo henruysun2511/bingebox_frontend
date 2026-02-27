@@ -70,7 +70,7 @@ export default function PaymentDetailPage() {
         pay(bookingId, {
             onSuccess: () => {
                 toast.success("Thanh toán thành công!");
-                router.push(`/profile/bookings`);
+                router.push(`/profile`);
             }
         });
     };

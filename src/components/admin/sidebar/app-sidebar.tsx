@@ -21,9 +21,8 @@ import {
 import * as React from "react"
 
 import { NavMain } from "@/components/admin/sidebar/nav-main"
-import { NavSecondary } from "@/components/admin/sidebar/nav-secondary"
-import { NavUser } from "@/components/admin/sidebar/nav-user"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
 import {
   Sidebar,
   SidebarContent,
@@ -33,6 +32,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { useLogout } from "@/queries/useAuthQuery"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
+import { NavSecondary } from "./nav-secondary"
 
 const data = {
   user: {
@@ -196,6 +199,20 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const logoutMutation = useLogout();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await logoutMutation.mutateAsync();
+      router.push("/");
+      router.refresh();
+      toast.success("Đã đăng xuất");
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
+
   return (
     <Sidebar className="" collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -222,10 +239,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent className="[&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <NavMain items={data.navMain} />
         {/* <NavDocuments items={data.documents} /> */}
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+       <Button className="w-full btn-delete" onClick={handleLogout}><IconHelp className="me-2" />Đăng xuất</Button>
       </SidebarFooter>
     </Sidebar>
   )

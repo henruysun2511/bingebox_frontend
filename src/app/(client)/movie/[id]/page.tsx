@@ -2,16 +2,20 @@
 
 import AuthorMessage from "@/components/author/author-message";
 import SectionTitle from "@/components/common/title/section-title";
+import { Button } from "@/components/ui/button";
 import { MovieStatusEnum } from "@/constants/enum";
 import { cn } from "@/lib/utils";
-import { useMovieDetail } from "@/queries/useMovieQuery";
+import { useMovieDetail, useToggleLikeMovie } from "@/queries/useMovieQuery";
 import { useShowtimesByMovie } from "@/queries/useShowtimeQuery";
+import { useGetMe } from "@/queries/useUserQuery";
+import { handleError } from "@/utils/error";
 import { addDays, format, isSameDay } from "date-fns";
 import { vi } from "date-fns/locale";
 import { Calendar1, Clock1, Heart } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const formatDate = (date?: string) => {
     if (!date) return "N/A";
@@ -20,11 +24,18 @@ const formatDate = (date?: string) => {
 
 export default function MovieDetailPage() {
     const { id } = useParams<{ id: string }>();
+
+    //Lấy thông tin phim
     const { data: movieData, isLoading } = useMovieDetail(id);
     const movie = movieData?.data;
     const isComingSoon = movie?.status === MovieStatusEnum.COMING_SOON
     const [showTrailer, setShowTrailer] = useState(false);
-    const [isFavorite, setIsFavorite] = useState(false);
+
+    console.log(movie);
+
+    //Lấy thông tin user
+    const { data: meRes } = useGetMe();
+    const currentUserId = meRes?.data?._id;
 
 
     //Logic lấy lịch chiếu hiện tại theo ngày
@@ -38,15 +49,11 @@ export default function MovieDetailPage() {
     const dateTabs = Array.from({ length: 7 }, (_, i) => addDays(new Date(), i));
 
 
-
-
     //Logic lấy lịch chiếu trong quá khứ
     const [showPast, setShowPast] = useState(false);
     const [selectedPastDate, setSelectedPastDate] = useState<Date | null>(null);
 
     const { data: showtimeDataV2, isLoading: isShowtimeV2Loading } = useShowtimesByMovie(id, {});
-    console.log(showtimeDataV2);
-
     const pastShowtimesRaw = showtimeDataV2?.data ?? [];
 
     // Lấy toàn bộ startTime
@@ -65,6 +72,20 @@ export default function MovieDetailPage() {
             ])
         ).values()
     ).sort((a, b) => a.getTime() - b.getTime());
+
+
+    const toggleLikeMutation = useToggleLikeMovie();
+    // Kiểm tra xem currentUserId có nằm trong mảng movie.likes không
+    const isLiked = movie?.likes?.includes(currentUserId);
+
+    const handleToggleLike = async () => {
+        try {
+            await toggleLikeMutation.mutateAsync(movie?._id || "");
+            toast.success(isLiked ? "Đã bỏ thích phim" : "Đã thích phim");
+        } catch (error) {
+            handleError(error);
+        }
+    };
 
 
     if (isLoading) return <div className="text-white p-10">Loading...</div>;
@@ -102,6 +123,24 @@ export default function MovieDetailPage() {
                             ▶
                         </div>
                     </div>
+
+                    <div className="absolute bottom-2 right-2 flex gap-4 items-center">
+                        <Button
+                            onClick={handleToggleLike}
+                            disabled={toggleLikeMutation.isPending}
+                            variant={isLiked ? "default" : "outline"}
+                            className={`gap-2 ${isLiked ? "bg-red-500 hover:bg-red-600" : "border-neutral-700"}`}
+                        >
+                            <Heart
+                                className={isLiked ? "fill-white" : ""}
+                                size={20}
+                            />
+                            {isLiked ? "Đã thích" : "Thích"}
+                        </Button>
+                        <span className="text-sm text-gray-400">
+                            {movie.likeCount || 0} lượt thích
+                        </span>
+                    </div>
                 </div>
             </div>
             <div className="px-80">
@@ -121,9 +160,13 @@ export default function MovieDetailPage() {
 
                             {/* Content */}
                             <div className="flex-1">
-                                <h2 className="text-3xl font-bold mb-4">
-                                    {movie.name || "N/A"}
-                                </h2>
+                                <div className="flex items-center justify-between mb-4">
+                                    <h2 className="text-3xl font-bold">
+                                        {movie.name || "N/A"}
+                                    </h2>
+
+                                </div>
+
 
                                 {/* Basic Info */}
                                 <div className="flex flex-wrap gap-8 mb-4 text-sm text-white/80">
@@ -168,6 +211,7 @@ export default function MovieDetailPage() {
                                     </span>
                                 </div>
 
+
                                 {/* Buttons */}
                                 <div className="flex gap-4 mt-6">
                                     <button
@@ -186,18 +230,8 @@ export default function MovieDetailPage() {
                                         </Link>
                                     )}
 
-                                    <button
-                                        onClick={() => setIsFavorite(!isFavorite)}
-                                        className={cn(
-                                            "flex items-center gap-2 px-6 py-2 rounded-full border transition font-semibold",
-                                            isFavorite
-                                                ? "bg-red-600 border-red-600 text-white"
-                                                : "border-white/20 hover:bg-white/10 text-white"
-                                        )}
-                                    >
-                                        <Heart className={cn("w-5 h-5", isFavorite && "fill-current")} />
-                                        {isFavorite ? "ĐÃ THÍCH" : "YÊU THÍCH"}
-                                    </button>
+
+
                                 </div>
                             </div>
                         </div>

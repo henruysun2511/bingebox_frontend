@@ -77,6 +77,8 @@ interface Movie extends BaseObject {
     agePermission: AgePermissionTypeEnum;
     status: MovieStatusEnum;
     format?: string[];
+    likes: string[];
+    isLiked: boolean;
     likeCount?: number;
 }
 export type { Movie };
@@ -376,6 +378,34 @@ interface BookingDetail {
 }
 
 export type { BookingDetail };
+
+interface TicketUser {
+  _id: string;
+  showtime: {
+    _id: string;
+    movie: {
+      _id: string;
+      name: string;
+      subtitle: string[];
+    };
+    room: {
+      _id: string;
+      name: string;
+      cinema: {
+        _id: string;
+        name: string;
+      };
+    };
+    startTime: string;
+  };
+  seat: {
+    _id: string;
+    code: string;
+  };
+  qrCode: string;
+  createdAt: string;
+}
+export type { TicketUser };
 
 
 
