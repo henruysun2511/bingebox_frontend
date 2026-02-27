@@ -140,7 +140,19 @@ export default function CommentPage() {
 
     return (
         <div className="min-h-screen text-white pt-24 pb-20">
+               <div className="text-center mb-16">
+                    <h1 className="text-5xl font-extrabold mb-4 
+          bg-gradient-to-r from-blue-400 to-blue-600
+          bg-clip-text text-transparent">
+                        Bàn luận điện ảnh
+                    </h1>
+                    <p className="text-lg text-white/70 max-w-2xl mx-auto">
+                       Cùng nghe khán giả review trải nghiệm xem phim tại rạp
+                    </p>
+                </div>
+
             <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-8">
+             
 
                 {/* ===== SIDEBAR: MOVIE LIST (CỘT TRÁI) ===== */}
                 <div className="md:col-span-4 lg:col-span-3">

@@ -59,7 +59,7 @@ export default function ActorList() {
     const pagination = data?.pagination;
 
     return (
-        <div className="space-y-10">
+        <div className="space-y-10 flex flex-col justify-center">
             {/* Thanh bảng chữ cái A-Z */}
             <div className="flex flex-wrap gap-4 justify-center mb-12">
                 {alphabetImages.map((item) => {

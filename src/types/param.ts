@@ -88,23 +88,29 @@ interface TicketPriceParams extends Pagination {
 export type { TicketPriceParams };
 
 interface FoodParams extends Pagination {
-    name?: string;
-    minPrice?: string;
-    maxPrice?: string;
+  name?: string;
+  minPrice?: string;
+  maxPrice?: string;
 }
 export type { FoodParams };
 
-interface VoucherParams extends Pagination{
-    name?: string;
-    code?: string;
-    status?: string;
-    sort?: string; 
+interface VoucherParams extends Pagination {
+  name?: string;
+  code?: string;
+  status?: string;
+  sort?: string;
 }
 export type { VoucherParams };
 
-interface BlogParams extends Pagination{
-    title?: string
-    isPublished?: string
+interface BlogParams extends Pagination {
+  title?: string
+  isPublished?: string
 }
 export type { BlogParams };
 
+
+interface DateFilterParams {
+  from?: string; // ISO String: YYYY-MM-DD
+  to?: string;   // ISO String: YYYY-MM-DD
+}
+export type { DateFilterParams };

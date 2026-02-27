@@ -16,7 +16,7 @@ const testimonials = [
   {
     name: "Trấn Thành",
     position: "Nhà sản xuất",
-    image: "https://github.com/henruysun2511/BingeBox_Project/blob/main/assets/images/leonardo.webp?raw=true",
+    image: "https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2022/2/4/1001257/Tt.jpg",
     content: "Phim tôi đạo diễn phải cho chiếu ở rạp BingeBox đầu tiên"
   },
   {

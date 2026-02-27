@@ -454,6 +454,53 @@ interface TicketDetail {
 export type { TicketDetail };
 
 
+// Chart
+interface MembershipDistribution {
+  count: number;
+  name: string;
+}
+export type { MembershipDistribution };
+
+interface TicketSale {
+  soldTickets: number;
+  time: string; 
+}
+export type { TicketSale };
+
+interface ShowtimeSale {
+  ticketCount: number;
+  timeSlot: string;
+}
+export type { ShowtimeSale };
+
+interface TopMovie {
+  movieId: string;
+  name: string;
+  poster: string;
+  revenue: number;
+}
+export type { TopMovie };
+
+interface TopCustomer {
+  _id: string;
+  email: string;
+  fullName?: string;
+  avatar?: string;
+  membership: Membership | null;
+  totalSpending: number;
+}
+export type { TopCustomer };
+
+interface GeneralStat {
+  totalRevenue: number;
+  totalTickets: number;
+  totalMovies: number;
+}
+export type { GeneralStat };
+
+
+
+
 
 
 
