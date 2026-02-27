@@ -76,7 +76,7 @@ export default function MovieDetailPage() {
 
     const toggleLikeMutation = useToggleLikeMovie();
     // Kiểm tra xem currentUserId có nằm trong mảng movie.likes không
-    const isLiked = movie?.likes?.includes(currentUserId);
+    const isLiked = movie?.likes?.includes(currentUserId as string);
 
     const handleToggleLike = async () => {
         try {
@@ -368,15 +368,9 @@ export default function MovieDetailPage() {
                                                         </div>
                                                     ))}
                                                 </div>
-                                                <div className="text-center mb-5">
-                                                    <button
-                                                        onClick={() => setShowPast(!showPast)}
-                                                        className="px-6 py-3 bg-white/10 hover:bg-white/20 rounded-full text-sm font-semibold transition"
-                                                    >
-                                                        {showPast ? "Ẩn lịch chiếu quá khứ" : "Xem lịch chiếu trong quá khứ"}
-                                                    </button>
-                                                </div>
+
                                             </div>
+
 
 
                                         ))
@@ -391,13 +385,23 @@ export default function MovieDetailPage() {
 
 
                     </div>
+                    <div className="text-center mb-5">
+                        <button
+                            onClick={() => setShowPast(!showPast)}
+                            className="px-6 py-3 bg-white/10 hover:bg-white/20 rounded-full text-sm font-semibold transition"
+                        >
+                            {showPast ? "Ẩn lịch chiếu quá khứ" : "Xem lịch chiếu trong quá khứ"}
+                        </button>
+                    </div>
                 </div>
 
 
 
 
+
+
                 {showPast && (
-                    <div className="mt-16 mb-10">
+                    <div className="mt-16 mb-10  pl-5">
                         <SectionTitle title="Lịch chiếu trước đây" />
 
                         {/* DATE TABS */}

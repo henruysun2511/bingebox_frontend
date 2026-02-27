@@ -1,5 +1,5 @@
 import { ApiResponse } from "@/types/body";
-import { TicketUser } from "@/types/object";
+import { TicketDetail, TicketUser } from "@/types/object";
 import { Pagination } from "@/types/param";
 import http from "@/utils/http";
 
@@ -11,6 +11,6 @@ export const TicketService = {
     },
 
     getDetail(id: string) {
-        return http.get<ApiResponse<TicketUser>>(`/${prefix}/${id}`);
+        return http.get<ApiResponse<TicketDetail>>(`/${prefix}/${id}`);
     },
 };

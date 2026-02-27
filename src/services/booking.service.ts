@@ -1,5 +1,5 @@
 import { ApiResponse } from "@/types/body";
-import { Booking, BookingDetail } from "@/types/object";
+import { Booking, BookingAdmin, BookingDetail } from "@/types/object";
 import http from "@/utils/http";
 
 
@@ -14,8 +14,8 @@ export const BookingService = {
     return http.get<ApiResponse<Booking[]>>(`/${prefix}/my-booking`);
   },
 
-  getAllBookings() {
-    return http.get<ApiResponse<Booking[]>>(`/${prefix}`);
+  getAllBookings(params: any) {
+    return http.get<ApiResponse<BookingAdmin[]>>(`/${prefix}`, { params });
   },
 
   getBookingDetail(id: string) {

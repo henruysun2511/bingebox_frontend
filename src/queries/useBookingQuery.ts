@@ -26,11 +26,11 @@ export const useMyBookings = () => {
 };
 
 // 3. Lấy toàn bộ booking (Admin)
-export const useAllBookings = (params?: any) => {
+export const useBookingList = (params?: any) => {
   return useQuery({
     queryKey: [...BOOKING_QUERY_KEY, "all", params],
     queryFn: async () => {
-      const res = await BookingService.getAllBookings(); // Nếu service hỗ trợ params thì truyền vào
+      const res = await BookingService.getAllBookings(params);
       return res.data;
     },
   });

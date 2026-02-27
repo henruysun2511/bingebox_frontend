@@ -98,7 +98,6 @@ const data = {
       url: "#",
       icon: IconTicket,
       items: [
-        { title: "Hóa đơn vé", url: "/admin/ticket" },
         { title: "Hóa đơn thanh toán", url: "/admin/booking" },
         { title: "Giá vé", url: "/admin/ticketPrice" },
       ],

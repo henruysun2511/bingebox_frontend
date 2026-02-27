@@ -366,7 +366,7 @@ interface Ticket extends BaseObject {
 
 export type { Ticket };
 
-interface BookingDetail {
+interface BookingDetail extends BaseObject {
     showtime: any; 
     step: number;
     selectedSeats: Seat[];
@@ -419,6 +419,39 @@ interface Comment extends BaseObject {
 }
 export type { Comment };
 
+interface BookingAdmin {
+    _id: string;
+    userId: {
+        _id: string;
+        username: string;
+        email: string;
+        fullName: string;
+    };
+    finalAmount: number;
+    bookingStatus: BookingStatusEnum;
+    createdAt: string;
+}
+export type { BookingAdmin };
+
+interface TicketDetail {
+  _id: string;
+  isDeleted: boolean;
+  createdBy: string | null;
+  updatedBy: string | null;
+  booking: string;
+  showtime: any;
+  seat: Seat;
+  ticketPrice: string;
+  price: number;
+  qrCode: string;
+  status: TicketStatusEnum;
+  expiresAt: string | null;
+  user: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+export type { TicketDetail };
 
 
 
