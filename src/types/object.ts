@@ -407,6 +407,19 @@ interface TicketUser {
 }
 export type { TicketUser };
 
+interface Comment extends BaseObject {
+    user: string;
+    movie: string;
+    content: string;
+    rating: number;
+    likesCount: number;
+    replyCount: number;
+    parent?: string;
+    likes: string[];
+}
+export type { Comment };
+
+
 
 
 
