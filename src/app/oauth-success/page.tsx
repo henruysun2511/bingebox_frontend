@@ -2,26 +2,24 @@
 
 import { useAuthStore } from "@/stores/useAuthStore";
 import Cookies from "js-cookie";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function OAuthSuccessPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const setAuth = useAuthStore((s) => s.setAuth);
 
   useEffect(() => {
-    const accessToken = searchParams.get("accessToken");
+    const params = new URLSearchParams(window.location.search);
+    const accessToken = params.get("accessToken");
 
     if (!accessToken) {
       router.push("/auth/login");
       return;
     }
 
-    // Lưu accessToken trước
     Cookies.set("accessToken", accessToken, { expires: 7 });
 
-    // Sau đó gọi getMe để lấy user
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -44,11 +42,11 @@ export default function OAuthSuccessPage() {
         router.push("/");
       })
       .catch(() => router.push("/auth/login"));
-  }, [router, searchParams, setAuth]);
+  }, [router, setAuth]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      Đang xử lý đăng nhập Google...
+    <div className="min-h-screen flex items-center justify-center text-white">
+      Đang đăng nhập với Google...
     </div>
   );
 }
