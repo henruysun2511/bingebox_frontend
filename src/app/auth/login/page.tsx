@@ -46,6 +46,7 @@ export default function LoginPage() {
     };
 
 
+
     return (
         <div className="min-h-screen w-full flex items-center justify-end bg-[url('https://henruysun2511.github.io/BingeBox_Project/assets/images/starwarsLogin.jpg')] bg-cover bg-center bg-no-repeat font-['Orbitron',_sans-serif]">
 
@@ -140,7 +141,10 @@ export default function LoginPage() {
                             {/* Google Login */}
                             <Button
                                 type="button"
-                                className="rounded-md w-full bg-white text-black hover:bg-neutral-200 flex items-center justify-center gap-3 h-12  font-semibold transition-all"
+                                onClick={() => {
+                                    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google`;
+                                }}
+                                className="rounded-md w-full bg-white text-black hover:bg-neutral-200 flex items-center justify-center gap-3 h-12 font-semibold transition-all"
                             >
                                 <img
                                     src="https://www.svgrepo.com/show/475656/google-color.svg"
