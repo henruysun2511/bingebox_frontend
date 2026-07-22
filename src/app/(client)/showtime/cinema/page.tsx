@@ -226,7 +226,7 @@ export default function ShowtimeCinemaPage() {
                                             <div className="flex gap-3 flex-wrap pt-3">
                                                 {movieBlock.showtimes.map((st: any) => (
                                                     <Link
-                                                        href={`booking/${st._id}`}
+                                                        href={`/booking/${st._id}`}
                                                         key={st._id}
                                                         className="px-4 py-2 bg-white text-black font-semibold rounded-lg"
                                                     >

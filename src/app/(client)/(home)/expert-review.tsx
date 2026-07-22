@@ -33,7 +33,7 @@ export default function ExpertReviews() {
       <div className="container mx-auto px-4">
         {/* BOX HEAD */}
         <div className="text-center mb-[30px]">
-          <h2 className="text-[40px] font-bold text-yellow-500 mb-5">
+          <h2 className="text-5xl font-extrabold tracking-tight bg-gradient-to-r from-blue-400 to-blue-500 bg-clip-text text-transparent mb-5">
             ĐÁNH GIÁ TỪ CHUYÊN GIA
           </h2>
           <p className="text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
@@ -47,10 +47,10 @@ export default function ExpertReviews() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
           {testimonials.map((item, index) => (
             <div key={index} className="flex flex-col items-center">
-             <div className="relative bg-comment p-5 rounded-lg w-full h-full flex flex-col items-center justify-center text-center italic">
+              <div className="relative bg-comment p-5 rounded-lg w-full h-full flex flex-col items-center justify-center text-center italic">
                 {/* Icon nháy kép mở */}
                 <Quote size={20} className="text-quote mb-2 rotate-180 fill-quote" />
-                
+
                 <p className="font-medium leading-relaxed">
                   {item.content}
                 </p>
@@ -65,11 +65,11 @@ export default function ExpertReviews() {
               {/* THÔNG TIN NHÂN VẬT (INNER INFO) */}
               <div className="text-center mt-10 space-y-2">
                 <div className="w-20 h-20 mx-auto overflow-hidden rounded-full border-2 border-neutral-800">
-                   <img 
-                    src={item.image} 
-                    alt={item.name} 
+                  <img
+                    src={item.image}
+                    alt={item.name}
                     className="w-full h-full object-cover"
-                   />
+                  />
                 </div>
                 <h3 className="text-[23px] font-semibold mt-5">
                   {item.name}

@@ -32,7 +32,7 @@ export default function Carousel({ images }: CarouselProps) {
     }, [images]);
 
     return (
-        <div data-theme-fixed className="relative w-full mt-10 aspect-video sm:aspect-auto sm:h-[420px] md:h-[550px] lg:h-[700px] overflow-hidden">
+        <div data-theme-fixed className="relative w-full mt-15 aspect-video sm:aspect-auto sm:h-[420px] md:h-[550px] lg:h-[700px] overflow-hidden">
             {/* Slides */}
             <div
                 className="flex h-full transition-transform duration-700 ease-in-out"

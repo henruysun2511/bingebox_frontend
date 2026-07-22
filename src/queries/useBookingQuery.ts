@@ -37,7 +37,7 @@ export const useBookingList = (params?: any) => {
 };
 
 // 4. Chi tiết booking
-export const useBookingDetail = (id?: string) => {
+export const useBookingDetail = (id?: string, refetchInterval?: number) => {
   return useQuery({
     queryKey: [...BOOKING_QUERY_KEY, "detail", id],
     queryFn: async () => {
@@ -46,33 +46,12 @@ export const useBookingDetail = (id?: string) => {
       return res.data;
     },
     enabled: !!id,
-    staleTime: 0, // Đảm bảo dữ liệu thanh toán luôn mới nhất
+    staleTime: 0,
+    refetchInterval: refetchInterval ?? false,
   });
 };
 
-// 5. Giả lập thanh toán thành công
-export const useFakePay = () => {
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: (id: string) => BookingService.fakePay(id),
-    onSuccess: (_, id) => {
-      qc.invalidateQueries({ queryKey: BOOKING_QUERY_KEY });
-    },
-  });
-};
-
-// 6. Giả lập thanh toán thất bại
-export const useFakeFail = () => {
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: (id: string) => BookingService.fakeFail(id),
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: BOOKING_QUERY_KEY });
-    },
-  });
-};
-
-// 7. Dọn dẹp các booking hết hạn/lỗi
+// 5. Dọn dẹp các booking hết hạn/lỗi
 export const useCleanupBooking = () => {
   const qc = useQueryClient();
   return useMutation({

@@ -1,4 +1,4 @@
-import { AgePermissionTypeEnum, BaseStatusEnum, BookingStatusEnum, DayOfWeekEnum, GenderEnum, LoginTypeEnum, MovieStatusEnum, PermissionMethodTypeEnum, TicketStatusEnum } from "../constants/enum";
+import { AgePermissionTypeEnum, BaseStatusEnum, BookingStatusEnum, DayOfWeekEnum, GenderEnum, LoginTypeEnum, MovieStatusEnum, PaymentStatusEnum, PermissionMethodTypeEnum, TicketStatusEnum } from "../constants/enum";
 
 
 interface BaseObject {
@@ -351,6 +351,17 @@ interface Booking extends BaseObject {
 }
 
 export type { Booking };
+
+interface Payment {
+    _id: string;
+    booking: string;
+    referenceCode: string;
+    amount: number;
+    method: string;
+    status: PaymentStatusEnum;
+}
+
+export type { Payment };
 
 interface Ticket extends BaseObject {
     _id: string;

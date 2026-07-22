@@ -508,11 +508,18 @@ Thành tiền = Tổng tiền - Giảm giá
 ### Nhược điểm
 - Đây mới chỉ là thanh toán giả lập, tôi sẽ nghiên cứu áp dụng webhook trong tương lai.
 
+### Update
+- Đã áp dụng thanh toán thật qua **SePay** (chuyển khoản ngân hàng)
+- Khi tạo đơn, hệ thống sinh mã referenceCode theo định dạng `BINGEBOX_{bookingId}` và hiển thị thông tin tài khoản + mã QR để user chuyển khoản
+- User dùng app ngân hàng quét mã QR hoặc nhập thủ công số tài khoản, nội dung chuyển khoản, số tiền tương ứng
+
 ---
 ## 🎬 Vé cá nhân (User)
 Người dùng truy cập trang hồ sơ để theo dõi và quản lý toàn bộ các vé đã đặt. Tại đây, người dùng có thể xem danh sách vé theo từng suất chiếu cùng các thông tin liên quan như tên phim, thời gian chiếu, phòng chiếu, vị trí ghế và trạng thái vé.
 
 Mỗi vé được hệ thống tạo một mã QR duy nhất nhằm phục vụ cho quá trình xác thực khi khách hàng đến rạp. Mã QR được liên kết với thông tin chi tiết của vé trong cơ sở dữ liệu. Khi thực hiện quét mã QR bằng thiết bị kiểm soát vé, hệ thống sẽ truy xuất và hiển thị đầy đủ các thông tin liên quan như mã vé, thông tin suất chiếu, vị trí ghế, thời gian đặt vé và trạng thái sử dụng.
+
+Ngay sau khi thanh toán thành công, hệ thống sẽ tự động gửi email xác nhận đến địa chỉ email người dùng đã đăng ký. Email bao gồm thông tin chi tiết vé, mã QR đính kèm dưới dạng ảnh, giúp người dùng dễ dàng kiểm tra và xuất trình tại rạp mà không cần phải đăng nhập vào ứng dụng.
 
 <div style="display: flex; gap: 10px;">
   <img src="public/booking3.png" alt="Edit Seat 1" width="49%">

@@ -22,18 +22,6 @@ export const BookingService = {
     return http.get<ApiResponse<BookingDetail>>(`/${prefix}/${id}`);
   },
 
-  fakePay(id: string) {
-    return http.post<ApiResponse<Booking>>(
-      `/${prefix}/fake-pay/${id}`
-    );
-  },
-
-  fakeFail(id: string) {
-    return http.post<ApiResponse<Booking>>(
-      `/${prefix}/fake-fail/${id}`
-    );
-  },
-
   // Cleanup booking lỗi
   cleanup() {
     return http.delete<ApiResponse<void>>(`/${prefix}/cleanup`);
