@@ -3,11 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormMessage,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useResetPassword } from "@/queries/useAuthQuery";
@@ -46,7 +46,7 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-[url('https://henruysun2511.github.io/BingeBox_Project/assets/images/starwarsLogin.jpg')] bg-cover bg-center bg-no-repeat font-['Orbitron',_sans-serif]">
+    <div className="relative min-h-screen flex items-center justify-center bg-[url('https://henruysun2511.github.io/bingebox_ui/assets/images/starwarsLogin.jpg')] bg-cover bg-center bg-no-repeat font-['Orbitron',_sans-serif]">
      <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
 
 

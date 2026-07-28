@@ -44,7 +44,7 @@ export default function ForgotPasswordPage() {
     };
 
     return (
-        <div className="relative min-h-screen flex items-center justify-center bg-[url('https://henruysun2511.github.io/BingeBox_Project/assets/images/starwarsLogin.jpg')] bg-cover bg-center bg-no-repeat font-['Orbitron',_sans-serif]">
+        <div className="relative min-h-screen flex items-center justify-center bg-[url('https://henruysun2511.github.io/bingebox_ui/assets/images/starwarsLogin.jpg')] bg-cover bg-center bg-no-repeat font-['Orbitron',_sans-serif]">
             <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
 
             <Card className="relative w-full max-w-md bg-gradient shadow-2xl rounded-2xl p-6 z-10 border-none">

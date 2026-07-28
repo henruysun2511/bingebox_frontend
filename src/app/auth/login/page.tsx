@@ -48,7 +48,7 @@ export default function LoginPage() {
 
 
     return (
-        <div className="min-h-screen w-full flex items-center justify-end bg-[url('https://henruysun2511.github.io/BingeBox_Project/assets/images/starwarsLogin.jpg')] bg-cover bg-center bg-no-repeat font-['Orbitron',_sans-serif]">
+        <div className="min-h-screen w-full flex items-center justify-end bg-[url('https://henruysun2511.github.io/bingebox_ui/assets/images/starwarsLogin.jpg')] bg-cover bg-center bg-no-repeat font-['Orbitron',_sans-serif]">
 
             {/* Overlay */}
             <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
