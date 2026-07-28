@@ -154,7 +154,7 @@ export default function ResetPasswordPage() {
 
           <div className="flex items-center justify-center gap-4 pt-8 border-t border-white/10 mt-6 w-full">
             <img
-              src="https://henruysun2511.github.io/BingeBox_Project/assets/images/bingebox_logo.png"
+              src="https://henruysun2511.github.io/bingebox_ui/assets/images/bingebox_logo.png"
               alt="Logo"
               className="w-16 brightness-110"
             />

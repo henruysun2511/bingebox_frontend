@@ -73,7 +73,7 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className="min-h-screen w-full flex items-center justify-end bg-[url('https://henruysun2511.github.io/BingeBox_Project/assets/images/starwarsLogin.jpg')] bg-cover bg-center bg-no-repeat font-['Orbitron',_sans-serif]">
+        <div className="min-h-screen w-full flex items-center justify-end bg-[url('https://henruysun2511.github.io/bingebox_ui/assets/images/starwarsLogin.jpg')] bg-cover bg-center bg-no-repeat font-['Orbitron',_sans-serif]">
 
             <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
 
@@ -234,7 +234,7 @@ export default function RegisterPage() {
 
                         <div className="flex items-center justify-center gap-4 pt-10 border-t border-white/10 mt-6">
                             <img
-                                src="https://henruysun2511.github.io/BingeBox_Project/assets/images/bingebox_logo.png"
+                                src="https://henruysun2511.github.io/bingebox_ui/assets/images/bingebox_logo.png"
                                 alt="Logo"
                                 className="w-20 h-auto object-contain brightness-110"
                             />

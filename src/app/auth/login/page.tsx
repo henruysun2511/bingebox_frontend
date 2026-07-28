@@ -165,7 +165,7 @@ export default function LoginPage() {
                             {/* Brand */}
                             <div className="flex items-center justify-center gap-4 pt-10 border-t border-white/10 mt-6">
                                 <img
-                                    src="https://henruysun2511.github.io/BingeBox_Project/assets/images/bingebox_logo.png"
+                                    src="https://henruysun2511.github.io/bingebox_ui/assets/images/bingebox_logo.png"
                                     alt="Logo"
                                     className="w-20 h-auto object-contain brightness-110"
                                 />
